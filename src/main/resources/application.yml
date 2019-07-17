@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/topc_iems?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/topc_iems?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username: topc_iems
     password: 1qaz@WSX
     type: com.alibaba.druid.pool.DruidDataSource
@@ -35,10 +35,24 @@ spring:
 
 mybatis:
   mapper-locations:
-    - classpath:mapper/*Mapper.xml
+    - classpath:mapper/**/*Mapper.xml
 
 pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+auth:
+  # 是否异步记录用户操作日志
+  openAopLog: true
+  # 单次最大批量入库数量
+  max:
+    batch:
+      insert:
+        num: 1000
+  shiro:
+    # 后端免认证接口 url
+    anonUrl: /login,/logout/**,/regist,/user/check/**
+    # token有效期，单位秒
+    jwtTimeOut: 3600
