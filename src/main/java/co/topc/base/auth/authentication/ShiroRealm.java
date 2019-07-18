@@ -1,10 +1,10 @@
 package co.topc.base.auth.authentication;
 
 import co.topc.base.auth.common.util.AuthUtil;
-import co.topc.base.auth.common.util.HttpContextUtil;
-import co.topc.base.auth.common.util.IPUtil;
 import co.topc.base.auth.entity.User;
 import co.topc.base.auth.service.UserManager;
+import co.topc.web.commons.utils.TopcHttpContextUtil;
+import co.topc.web.commons.utils.TopcIPUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -70,8 +70,8 @@ public class ShiroRealm extends AuthorizingRealm {
         String token = (String) authenticationToken.getCredentials();
 
         // 从 redis里获取这个 token
-        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-        String ip = IPUtil.getIpAddr(request);
+        HttpServletRequest request = TopcHttpContextUtil.getHttpServletRequest();
+        String ip = TopcIPUtil.getIpAddr(request);
 
         String encryptToken = AuthUtil.encryptToken(token);
         String encryptTokenInRedis = null;

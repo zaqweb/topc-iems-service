@@ -2,6 +2,7 @@ package co.topc.base.auth.common.util;
 
 import co.topc.base.auth.common.constant.AuthConstant;
 import co.topc.base.auth.common.constant.StringPool;
+import co.topc.web.commons.utils.TopcEncryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class AuthUtil {
      */
     public static String encryptToken(String token) {
         try {
-            co.topc.base.auth.common.util.EncryptUtil encryptUtil = new co.topc.base.auth.common.util.EncryptUtil(AuthConstant.TOKEN_CACHE_PREFIX);
+            TopcEncryptUtil encryptUtil = new TopcEncryptUtil(AuthConstant.TOKEN_CACHE_PREFIX);
             return encryptUtil.encrypt(token);
         } catch (Exception e) {
             logger.info("token加密失败：", e);
@@ -39,7 +40,7 @@ public class AuthUtil {
      */
     public static String decryptToken(String encryptToken) {
         try {
-            EncryptUtil encryptUtil = new EncryptUtil(AuthConstant.TOKEN_CACHE_PREFIX);
+            TopcEncryptUtil encryptUtil = new TopcEncryptUtil(AuthConstant.TOKEN_CACHE_PREFIX);
             return encryptUtil.decrypt(encryptToken);
         } catch (Exception e) {
             logger.info("token解密失败：", e);

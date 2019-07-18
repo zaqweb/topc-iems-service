@@ -3,16 +3,16 @@ package co.topc.base.auth.controller;
 import co.topc.base.auth.authentication.JWTToken;
 import co.topc.base.auth.authentication.JWTUtil;
 import co.topc.base.auth.common.util.AuthUtil;
-import co.topc.base.auth.common.util.DateUtil;
 import co.topc.base.auth.common.util.MD5Util;
 import co.topc.base.auth.entity.User;
 import co.topc.base.auth.properties.AuthProperties;
 import co.topc.base.auth.service.IUserService;
 import co.topc.base.auth.service.UserManager;
 import co.topc.web.commons.TopcWebResponse;
+import co.topc.web.commons.utils.TopcDateUtils;
+import co.topc.web.commons.utils.TopcStringUtils;
 import co.topc.web.commons.utils.TopcWebResponseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +42,7 @@ public class LoginController {
     public TopcWebResponse login(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password, HttpServletRequest request) throws Exception {
-        username = StringUtils.lowerCase(username);
+        username = TopcStringUtils.lowerCase(username);
         password = MD5Util.encrypt(username, password);
 
         final String errorMessage = "用户名或密码错误";
@@ -51,7 +51,7 @@ public class LoginController {
         if (user == null) {
             throw new Exception(errorMessage);
         }
-        if (!StringUtils.equals(user.getPassword(), password)) {
+        if (!TopcStringUtils.equals(user.getPassword(), password)) {
             throw new Exception(errorMessage);
         }
         if (User.STATUS_LOCK.equals(user.getStatus())) {
@@ -63,7 +63,7 @@ public class LoginController {
 
         String token = AuthUtil.encryptToken(JWTUtil.sign(username, password));
         LocalDateTime expireTime = LocalDateTime.now().plusSeconds(properties.getShiro().getJwtTimeOut());
-        String expireTimeStr = DateUtil.formatFullTime(expireTime);
+        String expireTimeStr = TopcDateUtils.formatFullTime(expireTime);
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
 
 //        String userId = this.saveTokenToRedis(user, jwtToken, request);
