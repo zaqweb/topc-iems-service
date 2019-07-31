@@ -28,7 +28,7 @@ public class RoomController {
     @Autowired
     private IRoomService roomService;
 
-    @GetMapping(value = "/list")
+   @RequestMapping(value = "/list",method = RequestMethod.GET)
     public TopcWebResponse getRoomList(RoomListReq roomListReq) {
         if (logger.isInfoEnabled()) {
             logger.info("getRoomList请求参数{}", JSON.toJSONString(roomListReq));
