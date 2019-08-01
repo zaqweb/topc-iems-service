@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.topc.iems.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="co.topc.iems.entity.Room">
+    <id column="pk_id" jdbcType="VARCHAR" property="pkId" />
+    <result column="floor_pk_id" jdbcType="VARCHAR" property="floorPkId" />
+    <result column="room_no" jdbcType="VARCHAR" property="roomNo" />
+    <result column="room_area" jdbcType="DECIMAL" property="roomArea" />
+    <result column="room_status" jdbcType="VARCHAR" property="roomStatus" />
+    <result column="room_mark" jdbcType="VARCHAR" property="roomMark" />
+    <result column="is_deleted" jdbcType="VARCHAR" property="isDeleted" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="lessee_id" jdbcType="VARCHAR" property="lesseeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pk_id, floor_pk_id, room_no, room_area, room_status, room_mark, is_deleted, create_by, 
+    create_time, update_by, update_time, lessee_id
+  </sql>
+  <select id="selectByExample" parameterType="co.topc.iems.entity.RoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_iems_room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_iems_room
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_iems_room
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="co.topc.iems.entity.RoomExample">
+    delete from t_iems_room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="co.topc.iems.entity.Room">
+    insert into t_iems_room (pk_id, floor_pk_id, room_no, 
+      room_area, room_status, room_mark, 
+      is_deleted, create_by, create_time, 
+      update_by, update_time, lessee_id
+      )
+    values (#{pkId,jdbcType=VARCHAR}, #{floorPkId,jdbcType=VARCHAR}, #{roomNo,jdbcType=VARCHAR}, 
+      #{roomArea,jdbcType=DECIMAL}, #{roomStatus,jdbcType=VARCHAR}, #{roomMark,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{lesseeId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="co.topc.iems.entity.Room">
+    insert into t_iems_room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        pk_id,
+      </if>
+      <if test="floorPkId != null">
+        floor_pk_id,
+      </if>
+      <if test="roomNo != null">
+        room_no,
+      </if>
+      <if test="roomArea != null">
+        room_area,
+      </if>
+      <if test="roomStatus != null">
+        room_status,
+      </if>
+      <if test="roomMark != null">
+        room_mark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lesseeId != null">
+        lessee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        #{pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorPkId != null">
+        #{floorPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNo != null">
+        #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomArea != null">
+        #{roomArea,jdbcType=DECIMAL},
+      </if>
+      <if test="roomStatus != null">
+        #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="roomMark != null">
+        #{roomMark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="co.topc.iems.entity.RoomExample" resultType="java.lang.Long">
+    select count(*) from t_iems_room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_iems_room
+    <set>
+      <if test="record.pkId != null">
+        pk_id = #{record.pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorPkId != null">
+        floor_pk_id = #{record.floorPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomNo != null">
+        room_no = #{record.roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomArea != null">
+        room_area = #{record.roomArea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roomStatus != null">
+        room_status = #{record.roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomMark != null">
+        room_mark = #{record.roomMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lesseeId != null">
+        lessee_id = #{record.lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_iems_room
+    set pk_id = #{record.pkId,jdbcType=VARCHAR},
+      floor_pk_id = #{record.floorPkId,jdbcType=VARCHAR},
+      room_no = #{record.roomNo,jdbcType=VARCHAR},
+      room_area = #{record.roomArea,jdbcType=DECIMAL},
+      room_status = #{record.roomStatus,jdbcType=VARCHAR},
+      room_mark = #{record.roomMark,jdbcType=VARCHAR},
+      is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      lessee_id = #{record.lesseeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="co.topc.iems.entity.Room">
+    update t_iems_room
+    <set>
+      <if test="floorPkId != null">
+        floor_pk_id = #{floorPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNo != null">
+        room_no = #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomArea != null">
+        room_area = #{roomArea,jdbcType=DECIMAL},
+      </if>
+      <if test="roomStatus != null">
+        room_status = #{roomStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="roomMark != null">
+        room_mark = #{roomMark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="co.topc.iems.entity.Room">
+    update t_iems_room
+    set floor_pk_id = #{floorPkId,jdbcType=VARCHAR},
+      room_no = #{roomNo,jdbcType=VARCHAR},
+      room_area = #{roomArea,jdbcType=DECIMAL},
+      room_status = #{roomStatus,jdbcType=VARCHAR},
+      room_mark = #{roomMark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      lessee_id = #{lesseeId,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+</mapper>
