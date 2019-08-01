@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.topc.iems.mapper.FloorMapper">
+  <resultMap id="BaseResultMap" type="co.topc.iems.entity.Floor">
+    <id column="t_iems_floor_pk_id" jdbcType="VARCHAR" property="pkId" />
+    <result column="t_iems_floor_building_pk_id" jdbcType="VARCHAR" property="buildingPkId" />
+    <result column="t_iems_floor_floor_no" jdbcType="INTEGER" property="floorNo" />
+    <result column="t_iems_floor_floor_area" jdbcType="DECIMAL" property="floorArea" />
+    <result column="t_iems_floor_floor_manager" jdbcType="VARCHAR" property="floorManager" />
+    <result column="t_iems_floor_floor_manager_telephone" jdbcType="VARCHAR" property="floorManagerTelephone" />
+    <result column="t_iems_floor_floor_status" jdbcType="VARCHAR" property="floorStatus" />
+    <result column="t_iems_floor_is_deleted" jdbcType="VARCHAR" property="isDeleted" />
+    <result column="t_iems_floor_create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="t_iems_floor_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="t_iems_floor_update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="t_iems_floor_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="t_iems_floor_lessee_id" jdbcType="VARCHAR" property="lesseeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    t_iems_floor.pk_id as t_iems_floor_pk_id, t_iems_floor.building_pk_id as t_iems_floor_building_pk_id, 
+    t_iems_floor.floor_no as t_iems_floor_floor_no, t_iems_floor.floor_area as t_iems_floor_floor_area, 
+    t_iems_floor.floor_manager as t_iems_floor_floor_manager, t_iems_floor.floor_manager_telephone as t_iems_floor_floor_manager_telephone, 
+    t_iems_floor.floor_status as t_iems_floor_floor_status, t_iems_floor.is_deleted as t_iems_floor_is_deleted, 
+    t_iems_floor.create_by as t_iems_floor_create_by, t_iems_floor.create_time as t_iems_floor_create_time, 
+    t_iems_floor.update_by as t_iems_floor_update_by, t_iems_floor.update_time as t_iems_floor_update_time, 
+    t_iems_floor.lessee_id as t_iems_floor_lessee_id
+  </sql>
+  <select id="selectByExample" parameterType="co.topc.iems.entity.FloorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_iems_floor t_iems_floor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_iems_floor t_iems_floor
+    where t_iems_floor.pk_id = #{pkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_iems_floor
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="co.topc.iems.entity.FloorExample">
+    delete from t_iems_floor t_iems_floor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="co.topc.iems.entity.Floor">
+    insert into t_iems_floor (pk_id, building_pk_id, floor_no, 
+      floor_area, floor_manager, floor_manager_telephone, 
+      floor_status, is_deleted, create_by, 
+      create_time, update_by, update_time, 
+      lessee_id)
+    values (#{pkId,jdbcType=VARCHAR}, #{buildingPkId,jdbcType=VARCHAR}, #{floorNo,jdbcType=INTEGER}, 
+      #{floorArea,jdbcType=DECIMAL}, #{floorManager,jdbcType=VARCHAR}, #{floorManagerTelephone,jdbcType=VARCHAR}, 
+      #{floorStatus,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{lesseeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="co.topc.iems.entity.Floor">
+    insert into t_iems_floor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        pk_id,
+      </if>
+      <if test="buildingPkId != null">
+        building_pk_id,
+      </if>
+      <if test="floorNo != null">
+        floor_no,
+      </if>
+      <if test="floorArea != null">
+        floor_area,
+      </if>
+      <if test="floorManager != null">
+        floor_manager,
+      </if>
+      <if test="floorManagerTelephone != null">
+        floor_manager_telephone,
+      </if>
+      <if test="floorStatus != null">
+        floor_status,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lesseeId != null">
+        lessee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        #{pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPkId != null">
+        #{buildingPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNo != null">
+        #{floorNo,jdbcType=INTEGER},
+      </if>
+      <if test="floorArea != null">
+        #{floorArea,jdbcType=DECIMAL},
+      </if>
+      <if test="floorManager != null">
+        #{floorManager,jdbcType=VARCHAR},
+      </if>
+      <if test="floorManagerTelephone != null">
+        #{floorManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="floorStatus != null">
+        #{floorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="co.topc.iems.entity.FloorExample" resultType="java.lang.Long">
+    select count(*) from t_iems_floor t_iems_floor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_iems_floor t_iems_floor
+    <set>
+      <if test="record.pkId != null">
+        t_iems_floor.pk_id = #{record.pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingPkId != null">
+        t_iems_floor.building_pk_id = #{record.buildingPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorNo != null">
+        t_iems_floor.floor_no = #{record.floorNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.floorArea != null">
+        t_iems_floor.floor_area = #{record.floorArea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.floorManager != null">
+        t_iems_floor.floor_manager = #{record.floorManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorManagerTelephone != null">
+        t_iems_floor.floor_manager_telephone = #{record.floorManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorStatus != null">
+        t_iems_floor.floor_status = #{record.floorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null">
+        t_iems_floor.is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        t_iems_floor.create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        t_iems_floor.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        t_iems_floor.update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        t_iems_floor.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lesseeId != null">
+        t_iems_floor.lessee_id = #{record.lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_iems_floor t_iems_floor
+    set t_iems_floor.pk_id = #{record.pkId,jdbcType=VARCHAR},
+      t_iems_floor.building_pk_id = #{record.buildingPkId,jdbcType=VARCHAR},
+      t_iems_floor.floor_no = #{record.floorNo,jdbcType=INTEGER},
+      t_iems_floor.floor_area = #{record.floorArea,jdbcType=DECIMAL},
+      t_iems_floor.floor_manager = #{record.floorManager,jdbcType=VARCHAR},
+      t_iems_floor.floor_manager_telephone = #{record.floorManagerTelephone,jdbcType=VARCHAR},
+      t_iems_floor.floor_status = #{record.floorStatus,jdbcType=VARCHAR},
+      t_iems_floor.is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      t_iems_floor.create_by = #{record.createBy,jdbcType=VARCHAR},
+      t_iems_floor.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      t_iems_floor.update_by = #{record.updateBy,jdbcType=VARCHAR},
+      t_iems_floor.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      t_iems_floor.lessee_id = #{record.lesseeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="co.topc.iems.entity.Floor">
+    update t_iems_floor
+    <set>
+      <if test="buildingPkId != null">
+        building_pk_id = #{buildingPkId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNo != null">
+        floor_no = #{floorNo,jdbcType=INTEGER},
+      </if>
+      <if test="floorArea != null">
+        floor_area = #{floorArea,jdbcType=DECIMAL},
+      </if>
+      <if test="floorManager != null">
+        floor_manager = #{floorManager,jdbcType=VARCHAR},
+      </if>
+      <if test="floorManagerTelephone != null">
+        floor_manager_telephone = #{floorManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="floorStatus != null">
+        floor_status = #{floorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="co.topc.iems.entity.Floor">
+    update t_iems_floor
+    set building_pk_id = #{buildingPkId,jdbcType=VARCHAR},
+      floor_no = #{floorNo,jdbcType=INTEGER},
+      floor_area = #{floorArea,jdbcType=DECIMAL},
+      floor_manager = #{floorManager,jdbcType=VARCHAR},
+      floor_manager_telephone = #{floorManagerTelephone,jdbcType=VARCHAR},
+      floor_status = #{floorStatus,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      lessee_id = #{lesseeId,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,6 +1,7 @@
 package co.topc.iems.entity.req;
+import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
+import javax.validation.constraints.Min;
 
 /**
  * 分页参数实体
@@ -8,14 +9,20 @@ import java.io.Serializable;
  * @author fantao
  * @date 2019/7/30 12:22
  */
-public class PageRequest implements Serializable {
+public class PageRequest  {
 
-    private static final long serialVersionUID = -4869594085374385813L;
-
+    @Min(value = 1,message = "pageSize不能小于1")
     private int pageSize;
     private int pageNum;
-
+    /**
+     * 排序属性
+     */
+    @ApiModelProperty(value="排序属性",name="sortField",hidden = true)
     private String sortField;
+    /**
+     * 排序字段
+     */
+    @ApiModelProperty(value="排序字段",name="sortOrder",hidden = true)
     private String sortOrder;
 
     public int getPageSize() {
