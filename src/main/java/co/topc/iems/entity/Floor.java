@@ -24,7 +24,7 @@ public class Floor implements Serializable {
      */
     private Integer floorNo;
 
-    private BigDecimal floorArea;
+    private Double floorArea;
 
     private String floorManager;
 
@@ -91,11 +91,11 @@ public class Floor implements Serializable {
         this.floorNo = floorNo;
     }
 
-    public BigDecimal getFloorArea() {
+    public Double getFloorArea() {
         return floorArea;
     }
 
-    public void setFloorArea(BigDecimal floorArea) {
+    public void setFloorArea(Double floorArea) {
         this.floorArea = floorArea;
     }
 

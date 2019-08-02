@@ -84,7 +84,7 @@ public class Renter implements Serializable {
     /**
      * 公司注册资本
      */
-    private BigDecimal renterComRegAmount;
+    private Double renterComRegAmount;
 
     /**
      * 是否删除
@@ -227,11 +227,11 @@ public class Renter implements Serializable {
         this.renterComAddress = renterComAddress;
     }
 
-    public BigDecimal getRenterComRegAmount() {
+    public Double getRenterComRegAmount() {
         return renterComRegAmount;
     }
 
-    public void setRenterComRegAmount(BigDecimal renterComRegAmount) {
+    public void setRenterComRegAmount(Double renterComRegAmount) {
         this.renterComRegAmount = renterComRegAmount;
     }
 

@@ -5,7 +5,7 @@
     <id column="t_iems_floor_pk_id" jdbcType="VARCHAR" property="pkId" />
     <result column="t_iems_floor_building_pk_id" jdbcType="VARCHAR" property="buildingPkId" />
     <result column="t_iems_floor_floor_no" jdbcType="INTEGER" property="floorNo" />
-    <result column="t_iems_floor_floor_area" jdbcType="DECIMAL" property="floorArea" />
+    <result column="t_iems_floor_floor_area" jdbcType="DOUBLE" property="floorArea" />
     <result column="t_iems_floor_floor_manager" jdbcType="VARCHAR" property="floorManager" />
     <result column="t_iems_floor_floor_manager_telephone" jdbcType="VARCHAR" property="floorManagerTelephone" />
     <result column="t_iems_floor_floor_status" jdbcType="VARCHAR" property="floorStatus" />
@@ -128,7 +128,7 @@
       create_time, update_by, update_time, 
       lessee_id)
     values (#{pkId,jdbcType=VARCHAR}, #{buildingPkId,jdbcType=VARCHAR}, #{floorNo,jdbcType=INTEGER}, 
-      #{floorArea,jdbcType=DECIMAL}, #{floorManager,jdbcType=VARCHAR}, #{floorManagerTelephone,jdbcType=VARCHAR}, 
+      #{floorArea,jdbcType=DOUBLE}, #{floorManager,jdbcType=VARCHAR}, #{floorManagerTelephone,jdbcType=VARCHAR},
       #{floorStatus,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{lesseeId,jdbcType=VARCHAR})
@@ -187,7 +187,7 @@
         #{floorNo,jdbcType=INTEGER},
       </if>
       <if test="floorArea != null">
-        #{floorArea,jdbcType=DECIMAL},
+        #{floorArea,jdbcType=DOUBLE},
       </if>
       <if test="floorManager != null">
         #{floorManager,jdbcType=VARCHAR},
@@ -237,7 +237,7 @@
         t_iems_floor.floor_no = #{record.floorNo,jdbcType=INTEGER},
       </if>
       <if test="record.floorArea != null">
-        t_iems_floor.floor_area = #{record.floorArea,jdbcType=DECIMAL},
+        t_iems_floor.floor_area = #{record.floorArea,jdbcType=DOUBLE},
       </if>
       <if test="record.floorManager != null">
         t_iems_floor.floor_manager = #{record.floorManager,jdbcType=VARCHAR},
@@ -276,7 +276,7 @@
     set t_iems_floor.pk_id = #{record.pkId,jdbcType=VARCHAR},
       t_iems_floor.building_pk_id = #{record.buildingPkId,jdbcType=VARCHAR},
       t_iems_floor.floor_no = #{record.floorNo,jdbcType=INTEGER},
-      t_iems_floor.floor_area = #{record.floorArea,jdbcType=DECIMAL},
+      t_iems_floor.floor_area = #{record.floorArea,jdbcType=DOUBLE},
       t_iems_floor.floor_manager = #{record.floorManager,jdbcType=VARCHAR},
       t_iems_floor.floor_manager_telephone = #{record.floorManagerTelephone,jdbcType=VARCHAR},
       t_iems_floor.floor_status = #{record.floorStatus,jdbcType=VARCHAR},
@@ -300,7 +300,7 @@
         floor_no = #{floorNo,jdbcType=INTEGER},
       </if>
       <if test="floorArea != null">
-        floor_area = #{floorArea,jdbcType=DECIMAL},
+        floor_area = #{floorArea,jdbcType=DOUBLE},
       </if>
       <if test="floorManager != null">
         floor_manager = #{floorManager,jdbcType=VARCHAR},
@@ -336,7 +336,7 @@
     update t_iems_floor
     set building_pk_id = #{buildingPkId,jdbcType=VARCHAR},
       floor_no = #{floorNo,jdbcType=INTEGER},
-      floor_area = #{floorArea,jdbcType=DECIMAL},
+      floor_area = #{floorArea,jdbcType=DOUBLE},
       floor_manager = #{floorManager,jdbcType=VARCHAR},
       floor_manager_telephone = #{floorManagerTelephone,jdbcType=VARCHAR},
       floor_status = #{floorStatus,jdbcType=VARCHAR},
