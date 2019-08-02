@@ -41,6 +41,16 @@ public class AddRoomReq implements Serializable {
      */
     private String lesseeId;
 
+    /**
+     * 创建人
+     */
+    private String createBy;
+
+    /**
+     * 更新人
+     */
+    private String updateBy;
+
     public String getFloorPkId() {
         return floorPkId;
     }
@@ -87,5 +97,21 @@ public class AddRoomReq implements Serializable {
 
     public void setLesseeId(String lesseeId) {
         this.lesseeId = lesseeId;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
     }
 }

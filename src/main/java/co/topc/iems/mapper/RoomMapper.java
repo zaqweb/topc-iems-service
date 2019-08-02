@@ -1,6 +1,5 @@
 package co.topc.iems.mapper;
 
-import co.topc.base.auth.mapper.MyBatisBaseDao;
 import co.topc.iems.entity.Room;
 import co.topc.iems.entity.RoomExample;
 import org.springframework.stereotype.Repository;

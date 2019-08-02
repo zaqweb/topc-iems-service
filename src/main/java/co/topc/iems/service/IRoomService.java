@@ -2,11 +2,13 @@ package co.topc.iems.service;
 
 import co.topc.iems.entity.Room;
 import co.topc.iems.entity.req.AddRoomReq;
-import co.topc.iems.entity.req.RoomListReq;
+import co.topc.iems.entity.req.ListRoomReq;
 import co.topc.iems.entity.req.UpdateRoomReq;
 import com.github.pagehelper.Page;
 
 /**
+ * room相关service
+ *
  * @author fantao
  * @date 2019/7/30 12:32
  */
@@ -15,10 +17,10 @@ public interface IRoomService {
     /**
      * 分页查询房间列表
      *
-     * @param roomListReq 查询条件封装
+     * @param listRoomReq 查询条件封装
      * @return
      */
-    Page<Room> getRoomList(RoomListReq roomListReq);
+    Page<Room> getRoomList(ListRoomReq listRoomReq);
 
     /**
      * 根据room主键id查询room详情
