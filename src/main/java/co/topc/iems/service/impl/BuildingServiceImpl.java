@@ -24,7 +24,7 @@ import java.util.Date;
 @Primary
 public class BuildingServiceImpl implements IBuildingService {
     @Autowired
-    BuildingMapper buildingMapper;
+    private BuildingMapper buildingMapper;
 
     @Override
     public Page<Building> getBuildingList(Building building) {
