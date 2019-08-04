@@ -24,7 +24,7 @@ public class AddRoomReq implements Serializable {
     /**
      * 房间面积
      */
-    private BigDecimal roomArea;
+    private Double roomArea;
 
     /**
      * 房间状态
@@ -67,11 +67,11 @@ public class AddRoomReq implements Serializable {
         this.roomNo = roomNo;
     }
 
-    public BigDecimal getRoomArea() {
+    public Double getRoomArea() {
         return roomArea;
     }
 
-    public void setRoomArea(BigDecimal roomArea) {
+    public void setRoomArea(Double roomArea) {
         this.roomArea = roomArea;
     }
 

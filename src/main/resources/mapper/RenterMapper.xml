@@ -16,7 +16,7 @@
     <result column="renter_com_built_time" jdbcType="TIMESTAMP" property="renterComBuiltTime" />
     <result column="renter_com_type" jdbcType="VARCHAR" property="renterComType" />
     <result column="renter_com_address" jdbcType="VARCHAR" property="renterComAddress" />
-    <result column="renter_com_reg_amount" jdbcType="DECIMAL" property="renterComRegAmount" />
+    <result column="renter_com_reg_amount" jdbcType="DOUBLE" property="renterComRegAmount" />
     <result column="is_deleted" jdbcType="VARCHAR" property="isDeleted" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -141,7 +141,7 @@
       #{renterFinancialContactor,jdbcType=VARCHAR}, #{renterFinancialContactorTelephone,jdbcType=VARCHAR}, 
       #{renterBillEmail,jdbcType=VARCHAR}, #{renterComMan,jdbcType=VARCHAR}, #{renterComManTelephone,jdbcType=VARCHAR}, 
       #{renterComBuiltTime,jdbcType=TIMESTAMP}, #{renterComType,jdbcType=VARCHAR}, #{renterComAddress,jdbcType=VARCHAR}, 
-      #{renterComRegAmount,jdbcType=DECIMAL}, #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{renterComRegAmount,jdbcType=DOUBLE}, #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{lesseeId,jdbcType=VARCHAR})
   </insert>
@@ -256,7 +256,7 @@
         #{renterComAddress,jdbcType=VARCHAR},
       </if>
       <if test="renterComRegAmount != null">
-        #{renterComRegAmount,jdbcType=DECIMAL},
+        #{renterComRegAmount,jdbcType=DOUBLE},
       </if>
       <if test="isDeleted != null">
         #{isDeleted,jdbcType=VARCHAR},
@@ -330,7 +330,7 @@
         renter_com_address = #{record.renterComAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.renterComRegAmount != null">
-        renter_com_reg_amount = #{record.renterComRegAmount,jdbcType=DECIMAL},
+        renter_com_reg_amount = #{record.renterComRegAmount,jdbcType=DOUBLE},
       </if>
       <if test="record.isDeleted != null">
         is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
@@ -371,7 +371,7 @@
       renter_com_built_time = #{record.renterComBuiltTime,jdbcType=TIMESTAMP},
       renter_com_type = #{record.renterComType,jdbcType=VARCHAR},
       renter_com_address = #{record.renterComAddress,jdbcType=VARCHAR},
-      renter_com_reg_amount = #{record.renterComRegAmount,jdbcType=DECIMAL},
+      renter_com_reg_amount = #{record.renterComRegAmount,jdbcType=DOUBLE},
       is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -425,7 +425,7 @@
         renter_com_address = #{renterComAddress,jdbcType=VARCHAR},
       </if>
       <if test="renterComRegAmount != null">
-        renter_com_reg_amount = #{renterComRegAmount,jdbcType=DECIMAL},
+        renter_com_reg_amount = #{renterComRegAmount,jdbcType=DOUBLE},
       </if>
       <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=VARCHAR},
@@ -463,7 +463,7 @@
       renter_com_built_time = #{renterComBuiltTime,jdbcType=TIMESTAMP},
       renter_com_type = #{renterComType,jdbcType=VARCHAR},
       renter_com_address = #{renterComAddress,jdbcType=VARCHAR},
-      renter_com_reg_amount = #{renterComRegAmount,jdbcType=DECIMAL},
+      renter_com_reg_amount = #{renterComRegAmount,jdbcType=DOUBLE},
       is_deleted = #{isDeleted,jdbcType=VARCHAR},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
