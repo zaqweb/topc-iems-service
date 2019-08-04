@@ -1,68 +1,118 @@
 package co.topc.iems.entity;
 
+import co.topc.iems.entity.req.PageRequest;
+import co.topc.iems.validate.FloorValidateGroup;
+import co.topc.web.commons.TopcWebResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * t_iems_floor
- * @author 
+ *
+ * @author
  */
-public class Floor implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Floor extends PageRequest implements Serializable {
+    public interface ShowList extends TopcWebResponse.WebResponse {
+    }
+
     /**
      * 主键ID
      */
+    @NotBlank(message = "主键Id不能为空", groups = {FloorValidateGroup.Update.class})
+    @ApiModelProperty(value = "主键Id", name = "pkId", hidden = true)
     private String pkId;
 
     /**
      * 楼宇ID
      */
+    @NotBlank(message = "楼宇ID不能为空", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @ApiModelProperty(value = "楼宇IDId", name = "buildingPkId", required = true)
     private String buildingPkId;
 
     /**
      * 楼层
      */
+    @NotNull(message = "楼层不能为空", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @Min(value = 1, message = "楼层最小值为1", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @ApiModelProperty(value = "楼层", name = "floorNo", required = true)
+    @JsonView(Floor.ShowList.class)
     private Integer floorNo;
 
+    @NotNull(message = "楼宇面积不能为空", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @Min(value = 1, message = "楼层最小值为1", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @ApiModelProperty(value = "楼层", name = "floorNo", required = true)
+    @JsonView(Floor.ShowList.class)
     private Double floorArea;
-
+    /**
+     * 楼宇负责人
+     */
+    @ApiModelProperty(value = "楼宇负责人", name = "floorManager")
+    @JsonView(Floor.ShowList.class)
     private String floorManager;
 
     /**
      * 负责人电话
      */
+    @ApiModelProperty(value = "负责人电话", name = "floorManagerTelephone")
+    @JsonView(Floor.ShowList.class)
+    @Pattern(regexp = "1[3|4|5|7|8][0-9]\\d{8}",message = "电话号码格式不对",groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
     private String floorManagerTelephone;
 
     /**
      * 楼层状态
      */
+    @NotBlank(message = "楼层状态不能为空", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @Length(max = 2, message = "楼层状态不能超过2个字符", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
+    @ApiModelProperty(value = "楼层状态", name = "floorStatus", required = true)
+    @JsonView(Floor.ShowList.class)
     private String floorStatus;
 
     /**
      * 是否删除
      */
+    @JsonIgnore
     private String isDeleted;
 
     /**
-     * 	创建人
+     * 创建人
      */
+    @JsonIgnore
     private String createBy;
 
     /**
-     * 更新时间
+     * 创建时间
      */
+    @JsonIgnore
     private Date createTime;
 
     /**
      * 更新人
      */
+    @JsonView(Building.ShowList.class)
     private String updateBy;
-
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonView(Floor.ShowList.class)
     private Date updateTime;
 
     /**
      * 租户ID
      */
+    @JsonIgnore
     private String lesseeId;
 
     private static final long serialVersionUID = 1L;
@@ -184,18 +234,18 @@ public class Floor implements Serializable {
         }
         Floor other = (Floor) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
-            && (this.getBuildingPkId() == null ? other.getBuildingPkId() == null : this.getBuildingPkId().equals(other.getBuildingPkId()))
-            && (this.getFloorNo() == null ? other.getFloorNo() == null : this.getFloorNo().equals(other.getFloorNo()))
-            && (this.getFloorArea() == null ? other.getFloorArea() == null : this.getFloorArea().equals(other.getFloorArea()))
-            && (this.getFloorManager() == null ? other.getFloorManager() == null : this.getFloorManager().equals(other.getFloorManager()))
-            && (this.getFloorManagerTelephone() == null ? other.getFloorManagerTelephone() == null : this.getFloorManagerTelephone().equals(other.getFloorManagerTelephone()))
-            && (this.getFloorStatus() == null ? other.getFloorStatus() == null : this.getFloorStatus().equals(other.getFloorStatus()))
-            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
+                && (this.getBuildingPkId() == null ? other.getBuildingPkId() == null : this.getBuildingPkId().equals(other.getBuildingPkId()))
+                && (this.getFloorNo() == null ? other.getFloorNo() == null : this.getFloorNo().equals(other.getFloorNo()))
+                && (this.getFloorArea() == null ? other.getFloorArea() == null : this.getFloorArea().equals(other.getFloorArea()))
+                && (this.getFloorManager() == null ? other.getFloorManager() == null : this.getFloorManager().equals(other.getFloorManager()))
+                && (this.getFloorManagerTelephone() == null ? other.getFloorManagerTelephone() == null : this.getFloorManagerTelephone().equals(other.getFloorManagerTelephone()))
+                && (this.getFloorStatus() == null ? other.getFloorStatus() == null : this.getFloorStatus().equals(other.getFloorStatus()))
+                && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
+                && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
     }
 
     @Override
