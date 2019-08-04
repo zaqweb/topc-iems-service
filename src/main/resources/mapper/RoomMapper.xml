@@ -5,7 +5,7 @@
     <id column="pk_id" jdbcType="VARCHAR" property="pkId" />
     <result column="floor_pk_id" jdbcType="VARCHAR" property="floorPkId" />
     <result column="room_no" jdbcType="VARCHAR" property="roomNo" />
-    <result column="room_area" jdbcType="DECIMAL" property="roomArea" />
+    <result column="room_area" jdbcType="DOUBLE" property="roomArea" />
     <result column="room_status" jdbcType="VARCHAR" property="roomStatus" />
     <result column="room_mark" jdbcType="VARCHAR" property="roomMark" />
     <result column="is_deleted" jdbcType="VARCHAR" property="isDeleted" />
@@ -122,7 +122,7 @@
       update_by, update_time, lessee_id
       )
     values (#{pkId,jdbcType=VARCHAR}, #{floorPkId,jdbcType=VARCHAR}, #{roomNo,jdbcType=VARCHAR}, 
-      #{roomArea,jdbcType=DECIMAL}, #{roomStatus,jdbcType=VARCHAR}, #{roomMark,jdbcType=VARCHAR}, 
+      #{roomArea,jdbcType=DOUBLE}, #{roomStatus,jdbcType=VARCHAR}, #{roomMark,jdbcType=VARCHAR},
       #{isDeleted,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{lesseeId,jdbcType=VARCHAR}
       )
@@ -178,7 +178,7 @@
         #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="roomArea != null">
-        #{roomArea,jdbcType=DECIMAL},
+        #{roomArea,jdbcType=DOUBLE},
       </if>
       <if test="roomStatus != null">
         #{roomStatus,jdbcType=VARCHAR},
@@ -225,7 +225,7 @@
         room_no = #{record.roomNo,jdbcType=VARCHAR},
       </if>
       <if test="record.roomArea != null">
-        room_area = #{record.roomArea,jdbcType=DECIMAL},
+        room_area = #{record.roomArea,jdbcType=DOUBLE},
       </if>
       <if test="record.roomStatus != null">
         room_status = #{record.roomStatus,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
     set pk_id = #{record.pkId,jdbcType=VARCHAR},
       floor_pk_id = #{record.floorPkId,jdbcType=VARCHAR},
       room_no = #{record.roomNo,jdbcType=VARCHAR},
-      room_area = #{record.roomArea,jdbcType=DECIMAL},
+      room_area = #{record.roomArea,jdbcType=DOUBLE},
       room_status = #{record.roomStatus,jdbcType=VARCHAR},
       room_mark = #{record.roomMark,jdbcType=VARCHAR},
       is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
@@ -284,7 +284,7 @@
         room_no = #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="roomArea != null">
-        room_area = #{roomArea,jdbcType=DECIMAL},
+        room_area = #{roomArea,jdbcType=DOUBLE},
       </if>
       <if test="roomStatus != null">
         room_status = #{roomStatus,jdbcType=VARCHAR},
@@ -317,7 +317,7 @@
     update t_iems_room
     set floor_pk_id = #{floorPkId,jdbcType=VARCHAR},
       room_no = #{roomNo,jdbcType=VARCHAR},
-      room_area = #{roomArea,jdbcType=DECIMAL},
+      room_area = #{roomArea,jdbcType=DOUBLE},
       room_status = #{roomStatus,jdbcType=VARCHAR},
       room_mark = #{roomMark,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=VARCHAR},

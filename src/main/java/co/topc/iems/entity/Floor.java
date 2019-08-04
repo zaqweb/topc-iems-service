@@ -5,41 +5,38 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 房间实体类
- *
- * t_iems_room
- * @author
+ * t_iems_floor
+ * @author 
  */
-public class Room implements Serializable {
+public class Floor implements Serializable {
     /**
-     * 主键
+     * 主键ID
      */
     private String pkId;
 
     /**
-     * 楼层ID
+     * 楼宇ID
      */
-    private String floorPkId;
+    private String buildingPkId;
 
     /**
-     * 房间号
+     * 楼层
      */
-    private String roomNo;
+    private Integer floorNo;
+
+    private Double floorArea;
+
+    private String floorManager;
 
     /**
-     * 房间面积
+     * 负责人电话
      */
-    private Double roomArea;
+    private String floorManagerTelephone;
 
     /**
-     * 房间状态
+     * 楼层状态
      */
-    private String roomStatus;
-
-    /**
-     * 备注
-     */
-    private String roomMark;
+    private String floorStatus;
 
     /**
      * 是否删除
@@ -78,44 +75,52 @@ public class Room implements Serializable {
         this.pkId = pkId;
     }
 
-    public String getFloorPkId() {
-        return floorPkId;
+    public String getBuildingPkId() {
+        return buildingPkId;
     }
 
-    public void setFloorPkId(String floorPkId) {
-        this.floorPkId = floorPkId;
+    public void setBuildingPkId(String buildingPkId) {
+        this.buildingPkId = buildingPkId;
     }
 
-    public String getRoomNo() {
-        return roomNo;
+    public Integer getFloorNo() {
+        return floorNo;
     }
 
-    public void setRoomNo(String roomNo) {
-        this.roomNo = roomNo;
+    public void setFloorNo(Integer floorNo) {
+        this.floorNo = floorNo;
     }
 
-    public Double getRoomArea() {
-        return roomArea;
+    public Double getFloorArea() {
+        return floorArea;
     }
 
-    public void setRoomArea(Double roomArea) {
-        this.roomArea = roomArea;
+    public void setFloorArea(Double floorArea) {
+        this.floorArea = floorArea;
     }
 
-    public String getRoomStatus() {
-        return roomStatus;
+    public String getFloorManager() {
+        return floorManager;
     }
 
-    public void setRoomStatus(String roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setFloorManager(String floorManager) {
+        this.floorManager = floorManager;
     }
 
-    public String getRoomMark() {
-        return roomMark;
+    public String getFloorManagerTelephone() {
+        return floorManagerTelephone;
     }
 
-    public void setRoomMark(String roomMark) {
-        this.roomMark = roomMark;
+    public void setFloorManagerTelephone(String floorManagerTelephone) {
+        this.floorManagerTelephone = floorManagerTelephone;
+    }
+
+    public String getFloorStatus() {
+        return floorStatus;
+    }
+
+    public void setFloorStatus(String floorStatus) {
+        this.floorStatus = floorStatus;
     }
 
     public String getIsDeleted() {
@@ -177,13 +182,14 @@ public class Room implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Room other = (Room) that;
+        Floor other = (Floor) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
-            && (this.getFloorPkId() == null ? other.getFloorPkId() == null : this.getFloorPkId().equals(other.getFloorPkId()))
-            && (this.getRoomNo() == null ? other.getRoomNo() == null : this.getRoomNo().equals(other.getRoomNo()))
-            && (this.getRoomArea() == null ? other.getRoomArea() == null : this.getRoomArea().equals(other.getRoomArea()))
-            && (this.getRoomStatus() == null ? other.getRoomStatus() == null : this.getRoomStatus().equals(other.getRoomStatus()))
-            && (this.getRoomMark() == null ? other.getRoomMark() == null : this.getRoomMark().equals(other.getRoomMark()))
+            && (this.getBuildingPkId() == null ? other.getBuildingPkId() == null : this.getBuildingPkId().equals(other.getBuildingPkId()))
+            && (this.getFloorNo() == null ? other.getFloorNo() == null : this.getFloorNo().equals(other.getFloorNo()))
+            && (this.getFloorArea() == null ? other.getFloorArea() == null : this.getFloorArea().equals(other.getFloorArea()))
+            && (this.getFloorManager() == null ? other.getFloorManager() == null : this.getFloorManager().equals(other.getFloorManager()))
+            && (this.getFloorManagerTelephone() == null ? other.getFloorManagerTelephone() == null : this.getFloorManagerTelephone().equals(other.getFloorManagerTelephone()))
+            && (this.getFloorStatus() == null ? other.getFloorStatus() == null : this.getFloorStatus().equals(other.getFloorStatus()))
             && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -197,11 +203,12 @@ public class Room implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getPkId() == null) ? 0 : getPkId().hashCode());
-        result = prime * result + ((getFloorPkId() == null) ? 0 : getFloorPkId().hashCode());
-        result = prime * result + ((getRoomNo() == null) ? 0 : getRoomNo().hashCode());
-        result = prime * result + ((getRoomArea() == null) ? 0 : getRoomArea().hashCode());
-        result = prime * result + ((getRoomStatus() == null) ? 0 : getRoomStatus().hashCode());
-        result = prime * result + ((getRoomMark() == null) ? 0 : getRoomMark().hashCode());
+        result = prime * result + ((getBuildingPkId() == null) ? 0 : getBuildingPkId().hashCode());
+        result = prime * result + ((getFloorNo() == null) ? 0 : getFloorNo().hashCode());
+        result = prime * result + ((getFloorArea() == null) ? 0 : getFloorArea().hashCode());
+        result = prime * result + ((getFloorManager() == null) ? 0 : getFloorManager().hashCode());
+        result = prime * result + ((getFloorManagerTelephone() == null) ? 0 : getFloorManagerTelephone().hashCode());
+        result = prime * result + ((getFloorStatus() == null) ? 0 : getFloorStatus().hashCode());
         result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -218,11 +225,12 @@ public class Room implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", pkId=").append(pkId);
-        sb.append(", floorPkId=").append(floorPkId);
-        sb.append(", roomNo=").append(roomNo);
-        sb.append(", roomArea=").append(roomArea);
-        sb.append(", roomStatus=").append(roomStatus);
-        sb.append(", roomMark=").append(roomMark);
+        sb.append(", buildingPkId=").append(buildingPkId);
+        sb.append(", floorNo=").append(floorNo);
+        sb.append(", floorArea=").append(floorArea);
+        sb.append(", floorManager=").append(floorManager);
+        sb.append(", floorManagerTelephone=").append(floorManagerTelephone);
+        sb.append(", floorStatus=").append(floorStatus);
         sb.append(", isDeleted=").append(isDeleted);
         sb.append(", createBy=").append(createBy);
         sb.append(", createTime=").append(createTime);

@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.topc.iems.mapper.BuildingMapper">
+  <resultMap id="BaseResultMap" type="co.topc.iems.entity.Building">
+    <id column="t_iems_building_pk_id" jdbcType="VARCHAR" property="pkId" />
+    <result column="t_iems_building_building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="t_iems_building_building_pic" jdbcType="VARCHAR" property="buildingPic" />
+    <result column="t_iems_building_building_pic_small" jdbcType="VARCHAR" property="buildingPicSmall" />
+    <result column="t_iems_building_building_floors" jdbcType="INTEGER" property="buildingFloors" />
+    <result column="t_iems_building_building_area" jdbcType="DOUBLE" property="buildingArea" />
+    <result column="t_iems_building_building_location_province" jdbcType="VARCHAR" property="buildingLocationProvince" />
+    <result column="t_iems_building_building_location_city" jdbcType="VARCHAR" property="buildingLocationCity" />
+    <result column="t_iems_building_building_location_district" jdbcType="VARCHAR" property="buildingLocationDistrict" />
+    <result column="t_iems_building_building_Address" jdbcType="VARCHAR" property="buildingAddress" />
+    <result column="t_iems_building_building_manager" jdbcType="VARCHAR" property="buildingManager" />
+    <result column="t_iems_building_building_manager_telephone" jdbcType="VARCHAR" property="buildingManagerTelephone" />
+    <result column="t_iems_building_building_telephone" jdbcType="VARCHAR" property="buildingTelephone" />
+    <result column="t_iems_building_building_status" jdbcType="VARCHAR" property="buildingStatus" />
+    <result column="t_iems_building_is_deleted" jdbcType="VARCHAR" property="isDeleted" />
+    <result column="t_iems_building_create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="t_iems_building_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="t_iems_building_update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="t_iems_building_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="t_iems_building_lessee_id" jdbcType="VARCHAR" property="lesseeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    t_iems_building.pk_id as t_iems_building_pk_id, t_iems_building.building_name as t_iems_building_building_name, 
+    t_iems_building.building_pic as t_iems_building_building_pic, t_iems_building.building_pic_small as t_iems_building_building_pic_small, 
+    t_iems_building.building_floors as t_iems_building_building_floors, t_iems_building.building_area as t_iems_building_building_area, 
+    t_iems_building.building_location_province as t_iems_building_building_location_province, 
+    t_iems_building.building_location_city as t_iems_building_building_location_city, 
+    t_iems_building.building_location_district as t_iems_building_building_location_district, 
+    t_iems_building.building_Address as t_iems_building_building_Address, t_iems_building.building_manager as t_iems_building_building_manager,
+    t_iems_building.building_manager_telephone as t_iems_building_building_manager_telephone, 
+    t_iems_building.building_telephone as t_iems_building_building_telephone, t_iems_building.building_status as t_iems_building_building_status, 
+    t_iems_building.is_deleted as t_iems_building_is_deleted, t_iems_building.create_by as t_iems_building_create_by, 
+    t_iems_building.create_time as t_iems_building_create_time, t_iems_building.update_by as t_iems_building_update_by, 
+    t_iems_building.update_time as t_iems_building_update_time, t_iems_building.lessee_id as t_iems_building_lessee_id
+  </sql>
+  <select id="selectByExample" parameterType="co.topc.iems.entity.BuildingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_iems_building t_iems_building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_iems_building t_iems_building
+    where t_iems_building.pk_id = #{pkId,jdbcType=VARCHAR}
+    and t_iems_building.is_deleted = 'N'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_iems_building
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="co.topc.iems.entity.BuildingExample">
+    delete from t_iems_building t_iems_building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="co.topc.iems.entity.Building">
+    insert into t_iems_building (pk_id, building_name, building_pic, 
+      building_pic_small, building_floors, building_area, 
+      building_location_province, building_location_city, 
+      building_location_district, building_Address,
+      building_manager, building_manager_telephone, 
+      building_telephone, building_status, is_deleted, 
+      create_by, create_time, update_by, 
+      update_time, lessee_id)
+    values (#{pkId,jdbcType=VARCHAR}, #{buildingName,jdbcType=VARCHAR}, #{buildingPic,jdbcType=VARCHAR}, 
+      #{buildingPicSmall,jdbcType=VARCHAR}, #{buildingFloors,jdbcType=INTEGER}, #{buildingArea,jdbcType=DOUBLE}, 
+      #{buildingLocationProvince,jdbcType=VARCHAR}, #{buildingLocationCity,jdbcType=VARCHAR}, 
+      #{buildingLocationDistrict,jdbcType=VARCHAR}, #{buildingAddress,jdbcType=VARCHAR},
+      #{buildingManager,jdbcType=VARCHAR}, #{buildingManagerTelephone,jdbcType=VARCHAR}, 
+      #{buildingTelephone,jdbcType=VARCHAR}, #{buildingStatus,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{lesseeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="co.topc.iems.entity.Building">
+    insert into t_iems_building
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        pk_id,
+      </if>
+      <if test="buildingName != null">
+        building_name,
+      </if>
+      <if test="buildingPic != null">
+        building_pic,
+      </if>
+      <if test="buildingPicSmall != null">
+        building_pic_small,
+      </if>
+      <if test="buildingFloors != null">
+        building_floors,
+      </if>
+      <if test="buildingArea != null">
+        building_area,
+      </if>
+      <if test="buildingLocationProvince != null">
+        building_location_province,
+      </if>
+      <if test="buildingLocationCity != null">
+        building_location_city,
+      </if>
+      <if test="buildingLocationDistrict != null">
+        building_location_district,
+      </if>
+      <if test="buildingAddress != null">
+        building_Address,
+      </if>
+      <if test="buildingManager != null">
+        building_manager,
+      </if>
+      <if test="buildingManagerTelephone != null">
+        building_manager_telephone,
+      </if>
+      <if test="buildingTelephone != null">
+        building_telephone,
+      </if>
+      <if test="buildingStatus != null">
+        building_status,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lesseeId != null">
+        lessee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        #{pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPic != null">
+        #{buildingPic,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPicSmall != null">
+        #{buildingPicSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingFloors != null">
+        #{buildingFloors,jdbcType=INTEGER},
+      </if>
+      <if test="buildingArea != null">
+        #{buildingArea,jdbcType=DOUBLE},
+      </if>
+      <if test="buildingLocationProvince != null">
+        #{buildingLocationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLocationCity != null">
+        #{buildingLocationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLocationDistrict != null">
+        #{buildingLocationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAddress != null">
+        #{buildingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingManager != null">
+        #{buildingManager,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingManagerTelephone != null">
+        #{buildingManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingTelephone != null">
+        #{buildingTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingStatus != null">
+        #{buildingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="co.topc.iems.entity.BuildingExample" resultType="java.lang.Long">
+    select count(*) from t_iems_building t_iems_building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_iems_building t_iems_building
+    <set>
+      <if test="record.pkId != null">
+        t_iems_building.pk_id = #{record.pkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingName != null">
+        t_iems_building.building_name = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingPic != null">
+        t_iems_building.building_pic = #{record.buildingPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingPicSmall != null">
+        t_iems_building.building_pic_small = #{record.buildingPicSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingFloors != null">
+        t_iems_building.building_floors = #{record.buildingFloors,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingArea != null">
+        t_iems_building.building_area = #{record.buildingArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.buildingLocationProvince != null">
+        t_iems_building.building_location_province = #{record.buildingLocationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingLocationCity != null">
+        t_iems_building.building_location_city = #{record.buildingLocationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingLocationDistrict != null">
+        t_iems_building.building_location_district = #{record.buildingLocationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingAddress != null">
+        t_iems_building.building_Address = #{record.buildingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingManager != null">
+        t_iems_building.building_manager = #{record.buildingManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingManagerTelephone != null">
+        t_iems_building.building_manager_telephone = #{record.buildingManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingTelephone != null">
+        t_iems_building.building_telephone = #{record.buildingTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingStatus != null">
+        t_iems_building.building_status = #{record.buildingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null">
+        t_iems_building.is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        t_iems_building.create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        t_iems_building.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        t_iems_building.update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        t_iems_building.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lesseeId != null">
+        t_iems_building.lessee_id = #{record.lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_iems_building t_iems_building
+    set t_iems_building.pk_id = #{record.pkId,jdbcType=VARCHAR},
+      t_iems_building.building_name = #{record.buildingName,jdbcType=VARCHAR},
+      t_iems_building.building_pic = #{record.buildingPic,jdbcType=VARCHAR},
+      t_iems_building.building_pic_small = #{record.buildingPicSmall,jdbcType=VARCHAR},
+      t_iems_building.building_floors = #{record.buildingFloors,jdbcType=INTEGER},
+      t_iems_building.building_area = #{record.buildingArea,jdbcType=DOUBLE},
+      t_iems_building.building_location_province = #{record.buildingLocationProvince,jdbcType=VARCHAR},
+      t_iems_building.building_location_city = #{record.buildingLocationCity,jdbcType=VARCHAR},
+      t_iems_building.building_location_district = #{record.buildingLocationDistrict,jdbcType=VARCHAR},
+      t_iems_building.building_Address = #{record.buildingAddress,jdbcType=VARCHAR},
+      t_iems_building.building_manager = #{record.buildingManager,jdbcType=VARCHAR},
+      t_iems_building.building_manager_telephone = #{record.buildingManagerTelephone,jdbcType=VARCHAR},
+      t_iems_building.building_telephone = #{record.buildingTelephone,jdbcType=VARCHAR},
+      t_iems_building.building_status = #{record.buildingStatus,jdbcType=VARCHAR},
+      t_iems_building.is_deleted = #{record.isDeleted,jdbcType=VARCHAR},
+      t_iems_building.create_by = #{record.createBy,jdbcType=VARCHAR},
+      t_iems_building.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      t_iems_building.update_by = #{record.updateBy,jdbcType=VARCHAR},
+      t_iems_building.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      t_iems_building.lessee_id = #{record.lesseeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="co.topc.iems.entity.Building">
+    update t_iems_building
+    <set>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPic != null">
+        building_pic = #{buildingPic,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingPicSmall != null">
+        building_pic_small = #{buildingPicSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingFloors != null">
+        building_floors = #{buildingFloors,jdbcType=INTEGER},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=DOUBLE},
+      </if>
+      <if test="buildingLocationProvince != null">
+        building_location_province = #{buildingLocationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLocationCity != null">
+        building_location_city = #{buildingLocationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingLocationDistrict != null">
+        building_location_district = #{buildingLocationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingAddress != null">
+        building_Address = #{buildingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingManager != null">
+        building_manager = #{buildingManager,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingManagerTelephone != null">
+        building_manager_telephone = #{buildingManagerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingTelephone != null">
+        building_telephone = #{buildingTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingStatus != null">
+        building_status = #{buildingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="co.topc.iems.entity.Building">
+    update t_iems_building
+    set building_name = #{buildingName,jdbcType=VARCHAR},
+      building_pic = #{buildingPic,jdbcType=VARCHAR},
+      building_pic_small = #{buildingPicSmall,jdbcType=VARCHAR},
+      building_floors = #{buildingFloors,jdbcType=INTEGER},
+      building_area = #{buildingArea,jdbcType=DOUBLE},
+      building_location_province = #{buildingLocationProvince,jdbcType=VARCHAR},
+      building_location_city = #{buildingLocationCity,jdbcType=VARCHAR},
+      building_location_district = #{buildingLocationDistrict,jdbcType=VARCHAR},
+      building_Address = #{buildingAddress,jdbcType=VARCHAR},
+      building_manager = #{buildingManager,jdbcType=VARCHAR},
+      building_manager_telephone = #{buildingManagerTelephone,jdbcType=VARCHAR},
+      building_telephone = #{buildingTelephone,jdbcType=VARCHAR},
+      building_status = #{buildingStatus,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      lessee_id = #{lesseeId,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=VARCHAR}
+  </update>
+</mapper>
