@@ -3,16 +3,22 @@ package co.topc.iems.service.impl;
 import co.topc.iems.entity.Room;
 import co.topc.iems.entity.RoomExample;
 import co.topc.iems.entity.req.AddRoomReq;
-import co.topc.iems.entity.req.RoomListReq;
+import co.topc.iems.entity.req.ListRoomReq;
 import co.topc.iems.entity.req.UpdateRoomReq;
 import co.topc.iems.mapper.RoomMapper;
 import co.topc.iems.service.IRoomService;
+import co.topc.web.commons.constants.TopcStringConstant;
 import co.topc.web.commons.utils.TopcStringUtils;
+import co.topc.web.commons.utils.TopcUUIDUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * @author fantao
@@ -26,20 +32,22 @@ public class RoomServiceImpl implements IRoomService {
     private RoomMapper roomMapper;
 
     @Override
-    public Page<Room> getRoomList(RoomListReq roomListReq) {
+    public Page<Room> getRoomList(ListRoomReq listRoomReq) {
         RoomExample roomExample = new RoomExample();
         RoomExample.Criteria criteria = roomExample.createCriteria();
-        if (TopcStringUtils.isNotBlank(roomListReq.getRoomNo())) {
-            criteria.andRoomNoEqualTo(roomListReq.getRoomNo());
+        criteria.andLesseeIdEqualTo(listRoomReq.getLesseeId());
+        criteria.andIsDeletedEqualTo(TopcStringConstant.N.toUpperCase());
+        if (TopcStringUtils.isNotBlank(listRoomReq.getRoomNo())) {
+            criteria.andRoomNoEqualTo(listRoomReq.getRoomNo());
         }
-        if (TopcStringUtils.isNotBlank(roomListReq.getRoomStatus())) {
-            criteria.andRoomStatusEqualTo(roomListReq.getRoomStatus());
+        if (TopcStringUtils.isNotBlank(listRoomReq.getRoomStatus())) {
+            criteria.andRoomStatusEqualTo(listRoomReq.getRoomStatus());
         }
-        if (null != roomListReq.getRoomArea()) {
+        if (null != listRoomReq.getRoomArea()) {
             // 房间面积使用between查询
-            criteria.andRoomAreaBetween(roomListReq.getRoomArea(), roomListReq.getRoomArea());
+            criteria.andRoomAreaBetween(listRoomReq.getRoomArea(), listRoomReq.getRoomArea());
         }
-        Page<Room> page = PageHelper.startPage(roomListReq.getPageNum(), roomListReq.getPageSize(), Boolean.TRUE);
+        Page<Room> page = PageHelper.startPage(listRoomReq.getPageNum(), listRoomReq.getPageSize(), Boolean.TRUE);
         roomMapper.selectByExample(roomExample);
 
         return page;
@@ -47,21 +55,49 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public Room getRoomDetail(String pkId) {
-        return null;
+        return roomMapper.selectByPrimaryKey(pkId);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addRoom(AddRoomReq addRoomReq) {
+        Room room = new Room();
+        room.setPkId(TopcUUIDUtils.getUUIDWithoutDash());
+        room.setFloorPkId(addRoomReq.getFloorPkId());
+        room.setLesseeId(addRoomReq.getLesseeId());
+        room.setRoomArea(addRoomReq.getRoomArea());
+        room.setRoomNo(addRoomReq.getRoomNo());
+        room.setRoomMark(addRoomReq.getRoomMark());
+        room.setRoomStatus(addRoomReq.getRoomStatus());
 
+        // 暂时这样写,后面可能从session里面取当前登陆用户信息
+        room.setCreateBy(addRoomReq.getCreateBy());
+        room.setUpdateBy(addRoomReq.getUpdateBy());
+        room.setCreateTime(new Date());
+        room.setUpdateTime(new Date());
+        roomMapper.insertSelective(room);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateRoom(UpdateRoomReq updateRoomReq) {
-
+        Room room = new Room();
+        BeanUtils.copyProperties(updateRoomReq, room);
+        // TODO 后续从session中取值
+        room.setUpdateBy("fan");
+        room.setUpdateTime(new Date());
+        roomMapper.updateByPrimaryKeySelective(room);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRoom(String pkId) {
+        Room room = new Room();
+        room.setPkId(pkId);
+        room.setIsDeleted(TopcStringConstant.Y.toUpperCase());
 
+        room.setUpdateBy("fan");
+        room.setUpdateTime(new Date());
+        roomMapper.updateByPrimaryKeySelective(room);
     }
 }
