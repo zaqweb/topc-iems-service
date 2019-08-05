@@ -1,10 +1,8 @@
 package co.topc.iems.mapper;
 
 import org.apache.ibatis.annotations.Param;
-
-import java.io.Serializable;
 import java.util.List;
-
+import java.io.Serializable;
 /**
  * DAO公共基类，由MybatisGenerator自动生成请勿修改
  *

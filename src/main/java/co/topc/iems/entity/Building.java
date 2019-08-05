@@ -37,8 +37,8 @@ public class Building extends PageRequest implements Serializable {
     /**
      * 楼宇名称
      */
-    @NotBlank(message = "楼宇名称不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 100, message = "楼宇名称不能超过100个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇名称不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 100, message = "楼宇名称不能超过100个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇名称", name = "buildingName", required = true)
     @JsonView(Building.ShowList.class)
     private String buildingName;
@@ -46,8 +46,8 @@ public class Building extends PageRequest implements Serializable {
     /**
      * 图片
      */
-    @NotBlank(message = "楼宇图片URL不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 200, message = "楼宇图片URL不能超过200个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇图片URL不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 200, message = "楼宇图片URL不能超过200个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "图片URL", name = "buildingPic", required = true)
     private String buildingPic;
 
@@ -59,15 +59,15 @@ public class Building extends PageRequest implements Serializable {
     /**
      * 楼层数
      */
-    @NotNull(message = "楼层数不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Min(value = 1, message = "楼层数不能小于1", groups = {BuildingValidateGroup.Insert.class})
+    @NotNull(message = "楼层数不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Min(value = 1, message = "楼层数不能小于1", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼层数", name = "buildingFloors", required = true)
     private Integer buildingFloors;
 
     /**
      * 面积
      */
-    @NotNull(message = "楼宇面积不能为空", groups = {BuildingValidateGroup.Insert.class})
+    @NotNull(message = "楼宇面积不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇面积", name = "buildingArea", required = true)
     @JsonView(Building.ShowList.class)
     private Double buildingArea;
@@ -75,24 +75,24 @@ public class Building extends PageRequest implements Serializable {
     /**
      * 省份
      */
-    @NotBlank(message = "楼宇省份不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 20, message = "楼宇省份不能超过20个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇省份不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 20, message = "楼宇省份不能超过20个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇省份", name = "buildingLocationProvince", required = true)
     private String buildingLocationProvince;
 
     /**
      * 城市
      */
-    @NotBlank(message = "楼宇城市不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 20, message = "楼宇城市不能超过20个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇城市不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 20, message = "楼宇城市不能超过20个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇城市", name = "buildingLocationCity", required = true)
     private String buildingLocationCity;
 
     /**
      * 区/县
      */
-    @NotBlank(message = "楼宇区/县不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 20, message = "楼宇区/县不能超过20个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇区/县不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 20, message = "楼宇区/县不能超过20个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇区/县", name = "buildingLocationDistrict", required = true)
     private String buildingLocationDistrict;
 
@@ -100,8 +100,8 @@ public class Building extends PageRequest implements Serializable {
      * 详细地址
      */
     @JsonView(Building.ShowList.class)
-    @NotBlank(message = "楼宇详细地址不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 20, message = "楼宇详细地址不能超过20个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇详细地址不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 20, message = "楼宇详细地址不能超过20个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @ApiModelProperty(value = "楼宇详细地址", name = "buildingAddress", required = true)
     private String buildingAddress;
 
@@ -126,8 +126,8 @@ public class Building extends PageRequest implements Serializable {
     /**
      * 楼宇状态
      */
-    @NotBlank(message = "楼宇状态不能为空", groups = {BuildingValidateGroup.Insert.class})
-    @Length(max = 2, message = "楼宇状态不能超过2个字符", groups = {BuildingValidateGroup.Insert.class})
+    @NotBlank(message = "楼宇状态不能为空", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
+    @Length(max = 2, message = "楼宇状态不能超过2个字符", groups = {BuildingValidateGroup.Insert.class, BuildingValidateGroup.Update.class})
     @JsonView(Building.ShowList.class)
     @ApiModelProperty(value = "楼宇状态", name = "buildingStatus", required = true)
     private String buildingStatus;
@@ -143,6 +143,7 @@ public class Building extends PageRequest implements Serializable {
      * 创建人
      */
     @ApiModelProperty(value = "创建人", name = "createBy", hidden = true)
+    @JsonIgnore
     private String createBy;
 
     /**
@@ -156,12 +157,14 @@ public class Building extends PageRequest implements Serializable {
      * 更新人
      */
     @ApiModelProperty(value = "更新人", name = "updateBy", hidden = true)
+    @JsonView(Building.ShowList.class)
     private String updateBy;
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "更新时间", name = "updateTime", hidden = true)
+    @JsonView(Building.ShowList.class)
     private Date updateTime;
 
     /**
