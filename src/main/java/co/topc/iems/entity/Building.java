@@ -1,6 +1,5 @@
 package co.topc.iems.entity;
 
-import co.topc.iems.entity.req.PageRequest;
 import co.topc.iems.validate.BuildingValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,7 +21,7 @@ import java.util.Date;
  * @author
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Building extends PageRequest implements Serializable {
+public class Building implements Serializable {
 
     public interface ShowList extends TopcWebResponse.WebResponse {
     }

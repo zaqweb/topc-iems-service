@@ -1,6 +1,7 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Building;
+import co.topc.iems.entity.req.ListBuildingReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -12,10 +13,10 @@ public interface IBuildingService {
     /**
      * 分页查询楼宇列表
      *
-     * @param building 查询条件封装
+     * @param listBuildingReq 查询条件封装
      * @return Building集合
      */
-    Page<Building> getBuildingList(Building building);
+    Page<Building> getBuildingList(ListBuildingReq listBuildingReq);
 
     /**
      * 根据Building主键id查询Building详情

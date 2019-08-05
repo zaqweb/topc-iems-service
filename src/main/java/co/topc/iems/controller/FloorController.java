@@ -3,6 +3,7 @@ package co.topc.iems.controller;
 import co.topc.iems.common.util.Constant;
 import co.topc.iems.common.util.PageUtil;
 import co.topc.iems.entity.Floor;
+import co.topc.iems.entity.req.ListFloorReq;
 import co.topc.iems.service.IFloorService;
 import co.topc.iems.validate.FloorValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
@@ -38,15 +39,15 @@ public class FloorController {
     @JsonView(Floor.ShowList.class)
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ApiOperation(value = "模糊查询楼层列表", notes = "参数需要指定pageSize")
-    public TopcWebResponse getFloorList(@Validated Floor floor) {
+    public TopcWebResponse getFloorList(@Validated ListFloorReq listFloorReq) {
         if (logger.isInfoEnabled()) {
-            logger.info("getFloorList请求参数{}", JSON.toJSONString(floor));
+            logger.info("getFloorList请求参数{}", JSON.toJSONString(listFloorReq));
         }
-        Page<Floor> floorPage = floorService.getFloorList(floor);
+        Page<Floor> floorPage = floorService.getFloorList(listFloorReq);
         return TopcWebResponseUtil.getSuccess(PageUtil.getData(floorPage));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "新增楼层")
     public TopcWebResponse insertFloor(@RequestBody @Validated(FloorValidateGroup.Insert.class) Floor floor) {
         if (logger.isInfoEnabled()) {
@@ -60,7 +61,7 @@ public class FloorController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     @ApiOperation(value = "修改楼层属性")
     public TopcWebResponse updateFloor(@RequestBody @Validated(FloorValidateGroup.Update.class) Floor floor) {
         if (logger.isInfoEnabled()) {
