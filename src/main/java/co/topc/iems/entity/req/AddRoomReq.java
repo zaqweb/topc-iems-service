@@ -24,7 +24,7 @@ public class AddRoomReq implements Serializable {
     /**
      * 房间面积
      */
-    private BigDecimal roomArea;
+    private Double roomArea;
 
     /**
      * 房间状态
@@ -40,6 +40,16 @@ public class AddRoomReq implements Serializable {
      * 租户ID
      */
     private String lesseeId;
+
+    /**
+     * 创建人
+     */
+    private String createBy;
+
+    /**
+     * 更新人
+     */
+    private String updateBy;
 
     public String getFloorPkId() {
         return floorPkId;
@@ -57,11 +67,11 @@ public class AddRoomReq implements Serializable {
         this.roomNo = roomNo;
     }
 
-    public BigDecimal getRoomArea() {
+    public Double getRoomArea() {
         return roomArea;
     }
 
-    public void setRoomArea(BigDecimal roomArea) {
+    public void setRoomArea(Double roomArea) {
         this.roomArea = roomArea;
     }
 
@@ -87,5 +97,21 @@ public class AddRoomReq implements Serializable {
 
     public void setLesseeId(String lesseeId) {
         this.lesseeId = lesseeId;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
     }
 }

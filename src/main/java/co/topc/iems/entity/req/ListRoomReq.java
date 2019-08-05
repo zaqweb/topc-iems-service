@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @author fantao
  * @date 2019/7/30 12:22
  */
-public class RoomListReq extends PageRequest implements Serializable {
+public class ListRoomReq extends PageRequest implements Serializable {
 
     /**
      * 房间号
