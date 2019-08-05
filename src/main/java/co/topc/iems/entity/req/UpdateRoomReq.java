@@ -12,6 +12,11 @@ import java.math.BigDecimal;
 public class UpdateRoomReq implements Serializable {
 
     /**
+     * 主键
+     */
+    private String pkId;
+
+    /**
      * 楼层ID
      */
     private String floorPkId;
@@ -40,6 +45,14 @@ public class UpdateRoomReq implements Serializable {
      * 租户ID
      */
     private String lesseeId;
+
+    public String getPkId() {
+        return pkId;
+    }
+
+    public void setPkId(String pkId) {
+        this.pkId = pkId;
+    }
 
     public String getFloorPkId() {
         return floorPkId;

@@ -26,8 +26,6 @@ public class RoomController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private String message;
-
     @Autowired
     private IRoomService roomService;
 
@@ -44,7 +42,7 @@ public class RoomController {
         return topcWebResponse;
     }
 
-    @GetMapping("/{pkId}")
+    @RequestMapping(value = "/{pkId}", method = RequestMethod.GET)
     public TopcWebResponse getRoomDetail(@RequestParam("pkId") String pkId) {
         if (logger.isInfoEnabled()) {
             logger.info("getRoomDetail param{}", JSON.toJSONString(pkId));
@@ -56,7 +54,7 @@ public class RoomController {
         return topcWebResponse;
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public TopcWebResponse addRoom(@RequestBody AddRoomReq addRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -69,15 +67,14 @@ public class RoomController {
         try {
             roomService.addRoom(addRoomReq);
         } catch (Exception e) {
-            message = "addRoom exception";
-            logger.error(message, e);
-            topcWebResponse.setCode(TopcWebResponseEnum.INSERT_ERROR.getCode());
-            topcWebResponse.setMessage(message);
+            logger.error("addRoom exception", e);
+            topcWebResponse.setCode(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getCode());
+            topcWebResponse.setMessage(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getMessage());
         }
         return topcWebResponse;
     }
 
-    @PutMapping
+    @RequestMapping(method = RequestMethod.PUT)
     public TopcWebResponse updateRoom(@RequestBody UpdateRoomReq updateRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -86,15 +83,14 @@ public class RoomController {
         try {
             roomService.updateRoom(updateRoomReq);
         } catch (Exception e) {
-            message = "updateRoom exception";
-            logger.error(message, e);
-            topcWebResponse.setCode(TopcWebResponseEnum.UPDATE_ERROR.getCode());
-            topcWebResponse.setMessage(message);
+            logger.error("updateRoom exception", e);
+            topcWebResponse.setCode(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getCode());
+            topcWebResponse.setMessage(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getMessage());
         }
         return topcWebResponse;
     }
 
-    @DeleteMapping("/{pkId}")
+    @RequestMapping(value = "/{pkId}", method = RequestMethod.DELETE)
     public TopcWebResponse deleteRoom(@RequestParam("pkId") String pkId) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -103,10 +99,9 @@ public class RoomController {
         try {
             roomService.deleteRoom(pkId);
         } catch (Exception e) {
-            message = "deleteRoom exception";
-            logger.error(message, e);
-            topcWebResponse.setCode(TopcWebResponseEnum.DELETE_ERROR.getCode());
-            topcWebResponse.setMessage(message);
+            logger.error("deleteRoom exception", e);
+            topcWebResponse.setCode(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getCode());
+            topcWebResponse.setMessage(TopcWebResponseEnum.SERVER_INTERNAL_ERROR.getMessage());
         }
         return topcWebResponse;
     }
