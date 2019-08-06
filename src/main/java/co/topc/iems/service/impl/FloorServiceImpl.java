@@ -3,6 +3,7 @@ package co.topc.iems.service.impl;
 import co.topc.iems.common.util.Constant;
 import co.topc.iems.entity.Floor;
 import co.topc.iems.entity.FloorExample;
+import co.topc.iems.entity.req.ListFloorReq;
 import co.topc.iems.mapper.FloorMapper;
 import co.topc.iems.service.IFloorService;
 import co.topc.web.commons.utils.TopcStringUtils;
@@ -26,7 +27,7 @@ public class FloorServiceImpl implements IFloorService {
     private FloorMapper floorMapper;
 
     @Override
-    public Page<Floor> getFloorList(Floor floor) {
+    public Page<Floor> getFloorList(ListFloorReq floor) {
         FloorExample example = new FloorExample();
         FloorExample.Criteria criteria = example.createCriteria();
         if (TopcStringUtils.isNotBlank(floor.getFloorStatus())) {

@@ -3,6 +3,7 @@ package co.topc.iems.service.impl;
 import co.topc.iems.common.util.Constant;
 import co.topc.iems.entity.Building;
 import co.topc.iems.entity.BuildingExample;
+import co.topc.iems.entity.req.ListBuildingReq;
 import co.topc.iems.mapper.BuildingMapper;
 import co.topc.iems.service.IBuildingService;
 import co.topc.web.commons.utils.TopcStringUtils;
@@ -27,7 +28,7 @@ public class BuildingServiceImpl implements IBuildingService {
     private BuildingMapper buildingMapper;
 
     @Override
-    public Page<Building> getBuildingList(Building building) {
+    public Page<Building> getBuildingList(ListBuildingReq building) {
         BuildingExample example = new BuildingExample();
         BuildingExample.Criteria criteria = example.createCriteria();
         if (TopcStringUtils.isNotBlank(building.getBuildingName())) {
