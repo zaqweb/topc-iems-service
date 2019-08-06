@@ -49,10 +49,12 @@ public class Floor extends PageRequest implements Serializable {
     @ApiModelProperty(value = "楼层", name = "floorNo", required = true)
     @JsonView(Floor.ShowList.class)
     private Integer floorNo;
-
+    /**
+     * 楼层面积
+     */
     @NotNull(message = "楼宇面积不能为空", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
     @Min(value = 1, message = "楼层最小值为1", groups = {FloorValidateGroup.Insert.class, FloorValidateGroup.Update.class})
-    @ApiModelProperty(value = "楼层", name = "floorNo", required = true)
+    @ApiModelProperty(value = "楼层面积", name = "floorNo", required = true)
     @JsonView(Floor.ShowList.class)
     private Double floorArea;
     /**

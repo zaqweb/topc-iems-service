@@ -1,6 +1,7 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Floor;
+import co.topc.iems.entity.req.ListFloorReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -15,7 +16,7 @@ public interface IFloorService {
      * @param floor 查询条件封装
      * @return Floor集合
      */
-    Page<Floor> getFloorList(Floor floor);
+    Page<Floor> getFloorList(ListFloorReq floor);
 
     /**
      * 根据Floor主键id查询Floor详情
