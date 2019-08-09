@@ -2,18 +2,18 @@ package co.topc.iems.controller;
 
 import co.topc.iems.common.util.PageUtil;
 import co.topc.iems.entity.Room;
-import co.topc.iems.entity.req.AddRoomReq;
-import co.topc.iems.entity.req.ListRoomReq;
-import co.topc.iems.entity.req.UpdateRoomReq;
 import co.topc.iems.service.IRoomService;
+import co.topc.iems.validate.RoomValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
 import co.topc.web.commons.constants.TopcWebResponseEnum;
 import co.topc.web.commons.utils.TopcWebResponseUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("room")
+@Api(value = "room的操作类")
 public class RoomController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,7 +32,7 @@ public class RoomController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public TopcWebResponse getRoomList(ListRoomReq listRoomReq) {
+    public TopcWebResponse getRoomList(@Validated Room listRoomReq) {
         if (logger.isInfoEnabled()) {
             logger.info("getRoomList param{}", JSON.toJSONString(listRoomReq));
         }
@@ -55,7 +56,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public TopcWebResponse addRoom(@RequestBody AddRoomReq addRoomReq) {
+    public TopcWebResponse addRoom(@RequestBody @Validated(RoomValidateGroup.Insert.class) Room addRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
             logger.info("addRoom param{}", JSON.toJSONString(addRoomReq));
@@ -75,7 +76,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public TopcWebResponse updateRoom(@RequestBody UpdateRoomReq updateRoomReq) {
+    public TopcWebResponse updateRoom(@RequestBody @Validated(RoomValidateGroup.Update.class) Room updateRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
             logger.info("updateRoom param{}", JSON.toJSONString(updateRoomReq));

@@ -1,9 +1,6 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Renter;
-import co.topc.iems.entity.req.AddRenterReq;
-import co.topc.iems.entity.req.ListRenterReq;
-import co.topc.iems.entity.req.UpdateRenterReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -17,10 +14,10 @@ public interface IRenterService {
     /**
      * 分页查询租客列表
      *
-     * @param listRenterReq 查询条件封装
+     * @param renter 查询条件封装
      * @return
      */
-    Page<Renter> getRenterList(ListRenterReq listRenterReq);
+    Page<Renter> getRenterList(Renter renter);
 
     /**
      * 根据Renter主键id查询Renter详情
@@ -33,16 +30,16 @@ public interface IRenterService {
     /**
      * 新增Renter
      *
-     * @param addRenterReq 新增Renter请求封装
+     * @param renter 新增Renter请求封装
      */
-    void addRenter(AddRenterReq addRenterReq);
+    void addRenter(Renter renter);
 
     /**
      * 修改Renter
      *
-     * @param updateRenterReq 修改Renter请求封装
+     * @param renter 修改Renter请求封装
      */
-    void updateRenter(UpdateRenterReq updateRenterReq);
+    void updateRenter(Renter renter);
 
     /**
      * 删除Renter

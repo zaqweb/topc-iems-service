@@ -2,9 +2,6 @@ package co.topc.iems.service.impl;
 
 import co.topc.iems.entity.Renter;
 import co.topc.iems.entity.RenterExample;
-import co.topc.iems.entity.req.AddRenterReq;
-import co.topc.iems.entity.req.ListRenterReq;
-import co.topc.iems.entity.req.UpdateRenterReq;
 import co.topc.iems.mapper.RenterMapper;
 import co.topc.iems.service.IRenterService;
 import co.topc.web.commons.constants.TopcStringConstant;
@@ -31,29 +28,29 @@ public class RenterServiceImpl implements IRenterService {
     private RenterMapper renterMapper;
 
     @Override
-    public Page<Renter> getRenterList(ListRenterReq listRenterReq) {
+    public Page<Renter> getRenterList(Renter renter) {
         RenterExample renterExample = new RenterExample();
         RenterExample.Criteria criteria = renterExample.createCriteria();
 
-        criteria.andLesseeIdEqualTo(listRenterReq.getLesseeId());
+        criteria.andLesseeIdEqualTo(renter.getLesseeId());
         criteria.andIsDeletedEqualTo(TopcStringConstant.N.toUpperCase());
-        if (TopcStringUtils.isNotBlank(listRenterReq.getRenterComType())) {
-            criteria.andRenterComTypeEqualTo(listRenterReq.getRenterComType());
+        if (TopcStringUtils.isNotBlank(renter.getRenterComType())) {
+            criteria.andRenterComTypeEqualTo(renter.getRenterComType());
         }
-        if (TopcStringUtils.isNotBlank(listRenterReq.getRenterContactor())) {
-            criteria.andRenterContactorEqualTo(listRenterReq.getRenterContactor());
+        if (TopcStringUtils.isNotBlank(renter.getRenterContactor())) {
+            criteria.andRenterContactorEqualTo(renter.getRenterContactor());
         }
-        if (TopcStringUtils.isNotBlank(listRenterReq.getRenterContactorTelephone())) {
-            criteria.andRenterContactorTelephoneEqualTo(listRenterReq.getRenterContactorTelephone());
+        if (TopcStringUtils.isNotBlank(renter.getRenterContactorTelephone())) {
+            criteria.andRenterContactorTelephoneEqualTo(renter.getRenterContactorTelephone());
         }
-        if (TopcStringUtils.isNotBlank(listRenterReq.getRenterName())) {
-            criteria.andRenterNameEqualTo(listRenterReq.getRenterName());
+        if (TopcStringUtils.isNotBlank(renter.getRenterName())) {
+            criteria.andRenterNameEqualTo(renter.getRenterName());
         }
-        if (TopcStringUtils.isNotBlank(listRenterReq.getRenterType())) {
-            criteria.andRenterTypeEqualTo(listRenterReq.getRenterType());
+        if (TopcStringUtils.isNotBlank(renter.getRenterType())) {
+            criteria.andRenterTypeEqualTo(renter.getRenterType());
         }
 
-        Page<Renter> page = PageHelper.startPage(listRenterReq.getPageNum(), listRenterReq.getPageSize(), Boolean.TRUE);
+        Page<Renter> page = PageHelper.startPage(renter.getPageNum(), renter.getPageSize(), Boolean.TRUE);
         renterMapper.selectByExample(renterExample);
 
         return page;
@@ -65,9 +62,9 @@ public class RenterServiceImpl implements IRenterService {
     }
 
     @Override
-    public void addRenter(AddRenterReq addRenterReq) {
+    public void addRenter(Renter renterParam) {
         Renter renter = new Renter();
-        BeanUtils.copyProperties(addRenterReq, renter);
+        BeanUtils.copyProperties(renterParam, renter);
         renter.setPkId(TopcUUIDUtils.getUUIDWithoutDash());
 
         // 暂时这样写,后面可能从session里面取当前登陆用户信息
@@ -80,9 +77,9 @@ public class RenterServiceImpl implements IRenterService {
     }
 
     @Override
-    public void updateRenter(UpdateRenterReq updateRenterReq) {
+    public void updateRenter(Renter renterParam) {
         Renter renter = new Renter();
-        BeanUtils.copyProperties(updateRenterReq, renter);
+        BeanUtils.copyProperties(renterParam, renter);
         // TODO 后续从session中取值
         renter.setUpdateBy("fan");
         renter.setUpdateTime(new Date());
