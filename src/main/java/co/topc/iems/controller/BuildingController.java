@@ -3,6 +3,7 @@ package co.topc.iems.controller;
 import co.topc.iems.common.util.Constant;
 import co.topc.iems.common.util.PageUtil;
 import co.topc.iems.entity.Building;
+import co.topc.iems.entity.req.ListBuildingReq;
 import co.topc.iems.service.IBuildingService;
 import co.topc.iems.validate.BuildingValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
@@ -38,15 +39,15 @@ public class BuildingController {
     @JsonView(Building.ShowList.class)
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ApiOperation(value = "模糊查询楼宇列表", notes = "参数需要指定pageSize")
-    public TopcWebResponse getBuildingList(@Validated Building building) {
+    public TopcWebResponse getBuildingList(@Validated ListBuildingReq buildingReq) {
         if (logger.isInfoEnabled()) {
-            logger.info("getBuildingList请求参数{}", JSON.toJSONString(building));
+            logger.info("getBuildingList请求参数{}", JSON.toJSONString(buildingReq));
         }
-        Page<Building> buildingPage = buildingService.getBuildingList(building);
+        Page<Building> buildingPage = buildingService.getBuildingList(buildingReq);
         return TopcWebResponseUtil.getSuccess(PageUtil.getData(buildingPage));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "新增楼宇")
     public TopcWebResponse insertBuilding(@RequestBody @Validated(BuildingValidateGroup.Insert.class) Building building) {
         if (logger.isInfoEnabled()) {
@@ -60,7 +61,7 @@ public class BuildingController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     @ApiOperation(value = "修改楼宇属性")
     public TopcWebResponse updateBuilding(@RequestBody @Validated(BuildingValidateGroup.Update.class) Building building) {
         if (logger.isInfoEnabled()) {
