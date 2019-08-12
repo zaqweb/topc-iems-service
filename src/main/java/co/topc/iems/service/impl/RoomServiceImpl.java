@@ -2,6 +2,7 @@ package co.topc.iems.service.impl;
 
 import co.topc.iems.entity.Room;
 import co.topc.iems.entity.RoomExample;
+import co.topc.iems.entity.req.ListRoomReq;
 import co.topc.iems.mapper.RoomMapper;
 import co.topc.iems.service.IRoomService;
 import co.topc.web.commons.constants.TopcStringConstant;
@@ -29,22 +30,22 @@ public class RoomServiceImpl implements IRoomService {
     private RoomMapper roomMapper;
 
     @Override
-    public Page<Room> getRoomList(Room roomParam) {
+    public Page<Room> getRoomList(ListRoomReq listRoomReq) {
         RoomExample roomExample = new RoomExample();
         RoomExample.Criteria criteria = roomExample.createCriteria();
-        criteria.andLesseeIdEqualTo(roomParam.getLesseeId());
+        criteria.andLesseeIdEqualTo(listRoomReq.getLesseeId());
         criteria.andIsDeletedEqualTo(TopcStringConstant.N.toUpperCase());
-        if (TopcStringUtils.isNotBlank(roomParam.getRoomNo())) {
-            criteria.andRoomNoEqualTo(roomParam.getRoomNo());
+        if (TopcStringUtils.isNotBlank(listRoomReq.getRoomNo())) {
+            criteria.andRoomNoEqualTo(listRoomReq.getRoomNo());
         }
-        if (TopcStringUtils.isNotBlank(roomParam.getRoomStatus())) {
-            criteria.andRoomStatusEqualTo(roomParam.getRoomStatus());
+        if (TopcStringUtils.isNotBlank(listRoomReq.getRoomStatus())) {
+            criteria.andRoomStatusEqualTo(listRoomReq.getRoomStatus());
         }
-        if (null != roomParam.getRoomArea()) {
+        if (null != listRoomReq.getRoomArea()) {
             // 房间面积使用between查询
-            criteria.andRoomAreaBetween(roomParam.getRoomArea(), roomParam.getRoomArea());
+            criteria.andRoomAreaBetween(listRoomReq.getRoomArea(), listRoomReq.getRoomArea());
         }
-        Page<Room> page = PageHelper.startPage(roomParam.getPageNum(), roomParam.getPageSize(), Boolean.TRUE);
+        Page<Room> page = PageHelper.startPage(listRoomReq.getPageNum(), listRoomReq.getPageSize(), Boolean.TRUE);
         roomMapper.selectByExample(roomExample);
 
         return page;

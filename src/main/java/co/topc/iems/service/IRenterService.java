@@ -1,6 +1,7 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Renter;
+import co.topc.iems.entity.req.ListRenterReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -14,10 +15,10 @@ public interface IRenterService {
     /**
      * 分页查询租客列表
      *
-     * @param renter 查询条件封装
+     * @param listRenterReq 查询条件封装
      * @return
      */
-    Page<Renter> getRenterList(Renter renter);
+    Page<Renter> getRenterList(ListRenterReq listRenterReq);
 
     /**
      * 根据Renter主键id查询Renter详情

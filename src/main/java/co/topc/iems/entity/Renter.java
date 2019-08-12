@@ -1,6 +1,5 @@
 package co.topc.iems.entity;
 
-import co.topc.iems.entity.req.PageRequest;
 import co.topc.iems.validate.RenterValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
 import co.topc.web.commons.utils.TopcDateUtils;
@@ -17,12 +16,13 @@ import java.util.Date;
 
 /**
  * 租客实体类
- *
+ * <p>
  * t_iems_renter
+ *
  * @author
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Renter extends PageRequest implements Serializable {
+public class Renter implements Serializable {
 
     public interface ShowList extends TopcWebResponse.WebResponse {
     }

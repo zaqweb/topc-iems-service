@@ -2,6 +2,7 @@ package co.topc.iems.controller;
 
 import co.topc.iems.common.util.PageUtil;
 import co.topc.iems.entity.Renter;
+import co.topc.iems.entity.req.ListRenterReq;
 import co.topc.iems.service.IRenterService;
 import co.topc.iems.validate.RenterValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("renter")
-@Api(value = "renter的操作类")
+@Api(value = "Renter的操作类")
 public class RenterController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -32,21 +33,22 @@ public class RenterController {
     @Autowired
     private IRenterService renterService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @JsonView(Renter.ShowList.class)
-    @ApiOperation(value = "查询renter列表", notes = "参数需要指定pageSize和pageNum")
-    public TopcWebResponse getRenterList(@Validated Renter renter) {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ApiOperation(value = "查询租客列表", notes = "参数需要指定pageSize和pageNum")
+    public TopcWebResponse getRenterList(@Validated ListRenterReq listRenterReq) {
         if (logger.isInfoEnabled()) {
-            logger.info("getRenterList param{}", JSON.toJSONString(renter));
+            logger.info("getRenterList param{}", JSON.toJSONString(listRenterReq));
         }
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
-        Page<Renter> renterPage = renterService.getRenterList(renter);
+        Page<Renter> renterPage = renterService.getRenterList(listRenterReq);
 
         topcWebResponse.setData(PageUtil.getData(renterPage));
         return topcWebResponse;
     }
 
     @RequestMapping(value = "/{pkId}", method = RequestMethod.GET)
+    @ApiOperation(value = "查看租客详情")
     public TopcWebResponse getRenterDetail(@RequestParam("pkId") String pkId) {
         if (logger.isInfoEnabled()) {
             logger.info("getRenterDetail param{}", JSON.toJSONString(pkId));
@@ -59,6 +61,7 @@ public class RenterController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @ApiOperation(value = "新增租客")
     public TopcWebResponse addRenter(@RequestBody @Validated(RenterValidateGroup.Insert.class) Renter renter) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -79,6 +82,7 @@ public class RenterController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @ApiOperation(value = "修改租客")
     public TopcWebResponse updateRenter(@RequestBody @Validated(RenterValidateGroup.Update.class) Renter renter) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -95,6 +99,7 @@ public class RenterController {
     }
 
     @RequestMapping(value = "/{pkId}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "删除租客")
     public TopcWebResponse deleteRenter(@RequestParam("pkId") String pkId) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {

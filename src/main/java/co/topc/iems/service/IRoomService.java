@@ -1,6 +1,7 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Room;
+import co.topc.iems.entity.req.ListRoomReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -17,7 +18,7 @@ public interface IRoomService {
      * @param listRoomReq 查询条件封装
      * @return
      */
-    Page<Room> getRoomList(Room listRoomReq);
+    Page<Room> getRoomList(ListRoomReq listRoomReq);
 
     /**
      * 根据room主键id查询room详情

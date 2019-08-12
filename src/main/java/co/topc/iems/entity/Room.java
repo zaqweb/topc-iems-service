@@ -1,6 +1,5 @@
 package co.topc.iems.entity;
 
-import co.topc.iems.entity.req.PageRequest;
 import co.topc.iems.validate.RenterValidateGroup;
 import co.topc.iems.validate.RoomValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
@@ -24,7 +23,7 @@ import java.util.Date;
  * @author
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Room extends PageRequest implements Serializable {
+public class Room implements Serializable {
 
     public interface ShowList extends TopcWebResponse.WebResponse {
     }

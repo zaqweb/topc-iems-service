@@ -2,6 +2,7 @@ package co.topc.iems.controller;
 
 import co.topc.iems.common.util.PageUtil;
 import co.topc.iems.entity.Room;
+import co.topc.iems.entity.req.ListRoomReq;
 import co.topc.iems.service.IRoomService;
 import co.topc.iems.validate.RoomValidateGroup;
 import co.topc.web.commons.TopcWebResponse;
@@ -10,6 +11,7 @@ import co.topc.web.commons.utils.TopcWebResponseUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("room")
-@Api(value = "room的操作类")
+@Api(value = "Room的操作类")
 public class RoomController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -32,7 +34,8 @@ public class RoomController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public TopcWebResponse getRoomList(@Validated Room listRoomReq) {
+    @ApiOperation(value = "查询房间列表")
+    public TopcWebResponse getRoomList(@Validated ListRoomReq listRoomReq) {
         if (logger.isInfoEnabled()) {
             logger.info("getRoomList param{}", JSON.toJSONString(listRoomReq));
         }
@@ -44,6 +47,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{pkId}", method = RequestMethod.GET)
+    @ApiOperation(value = "查询房间详情")
     public TopcWebResponse getRoomDetail(@RequestParam("pkId") String pkId) {
         if (logger.isInfoEnabled()) {
             logger.info("getRoomDetail param{}", JSON.toJSONString(pkId));
@@ -56,6 +60,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @ApiOperation(value = "新增房间")
     public TopcWebResponse addRoom(@RequestBody @Validated(RoomValidateGroup.Insert.class) Room addRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -76,6 +81,7 @@ public class RoomController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @ApiOperation(value = "修改房间")
     public TopcWebResponse updateRoom(@RequestBody @Validated(RoomValidateGroup.Update.class) Room updateRoomReq) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {
@@ -92,6 +98,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{pkId}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "删除房间")
     public TopcWebResponse deleteRoom(@RequestParam("pkId") String pkId) {
         TopcWebResponse topcWebResponse = TopcWebResponseUtil.getSuccess();
         if (logger.isInfoEnabled()) {

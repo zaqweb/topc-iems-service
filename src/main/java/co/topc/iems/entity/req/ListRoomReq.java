@@ -1,5 +1,7 @@
 package co.topc.iems.entity.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -14,20 +16,24 @@ public class ListRoomReq extends PageRequest implements Serializable {
     /**
      * 房间号
      */
+    @ApiModelProperty(value = "房间号", name = "roomNo")
     private String roomNo;
 
     /**
      * 房间面积
      */
+    @ApiModelProperty(value = "房间面积", name = "roomArea")
     private BigDecimal roomArea;
 
     /**
      * 房间状态
      */
+    @ApiModelProperty(value = "房间状态", name = "roomStatus")
     private String roomStatus;
     /**
      * 租户ID
      */
+    @ApiModelProperty(value = "租户ID", name = "lesseeId")
     private String lesseeId;
 
     public String getRoomNo() {
