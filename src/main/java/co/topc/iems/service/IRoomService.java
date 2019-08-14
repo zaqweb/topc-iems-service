@@ -1,9 +1,7 @@
 package co.topc.iems.service;
 
 import co.topc.iems.entity.Room;
-import co.topc.iems.entity.req.AddRoomReq;
 import co.topc.iems.entity.req.ListRoomReq;
-import co.topc.iems.entity.req.UpdateRoomReq;
 import com.github.pagehelper.Page;
 
 /**
@@ -35,14 +33,14 @@ public interface IRoomService {
      *
      * @param addRoomReq 新增room请求封装
      */
-    void addRoom(AddRoomReq addRoomReq);
+    void addRoom(Room addRoomReq);
 
     /**
      * 修改room
      *
      * @param updateRoomReq 修改room请求封装
      */
-    void updateRoom(UpdateRoomReq updateRoomReq);
+    void updateRoom(Room updateRoomReq);
 
     /**
      * 删除room

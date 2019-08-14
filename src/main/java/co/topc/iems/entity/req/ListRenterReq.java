@@ -1,5 +1,7 @@
 package co.topc.iems.entity.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -11,31 +13,37 @@ public class ListRenterReq extends PageRequest implements Serializable {
     /**
      * 租户ID
      */
+    @ApiModelProperty(value = "租户ID", name = "lesseeId")
     private String lesseeId;
 
     /**
      * 租客类型 /个人，公司
      */
+    @ApiModelProperty(value = "租客类型", name = "renterType")
     private String renterType;
 
     /**
      * 姓名或工商注册名
      */
+    @ApiModelProperty(value = "姓名或工商注册名", name = "renterName")
     private String renterName;
 
     /**
      * 租客联系人
      */
+    @ApiModelProperty(value = "租客联系人", name = "renterContactor")
     private String renterContactor;
 
     /**
      * 租客联系电话
      */
+    @ApiModelProperty(value = "租客联系电话", name = "renterContactorTelephone")
     private String renterContactorTelephone;
 
     /**
      * 公司类型
      */
+    @ApiModelProperty(value = "公司类型", name = "renterComType")
     private String renterComType;
 
     public String getLesseeId() {
