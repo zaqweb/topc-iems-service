@@ -2,9 +2,7 @@ package co.topc.iems.service.impl;
 
 import co.topc.iems.entity.Renter;
 import co.topc.iems.entity.RenterExample;
-import co.topc.iems.entity.req.AddRenterReq;
 import co.topc.iems.entity.req.ListRenterReq;
-import co.topc.iems.entity.req.UpdateRenterReq;
 import co.topc.iems.mapper.RenterMapper;
 import co.topc.iems.service.IRenterService;
 import co.topc.web.commons.constants.TopcStringConstant;
@@ -65,9 +63,9 @@ public class RenterServiceImpl implements IRenterService {
     }
 
     @Override
-    public void addRenter(AddRenterReq addRenterReq) {
+    public void addRenter(Renter renterParam) {
         Renter renter = new Renter();
-        BeanUtils.copyProperties(addRenterReq, renter);
+        BeanUtils.copyProperties(renterParam, renter);
         renter.setPkId(TopcUUIDUtils.getUUIDWithoutDash());
 
         // 暂时这样写,后面可能从session里面取当前登陆用户信息
@@ -80,9 +78,9 @@ public class RenterServiceImpl implements IRenterService {
     }
 
     @Override
-    public void updateRenter(UpdateRenterReq updateRenterReq) {
+    public void updateRenter(Renter renterParam) {
         Renter renter = new Renter();
-        BeanUtils.copyProperties(updateRenterReq, renter);
+        BeanUtils.copyProperties(renterParam, renter);
         // TODO 后续从session中取值
         renter.setUpdateBy("fan");
         renter.setUpdateTime(new Date());

@@ -1,116 +1,191 @@
 package co.topc.iems.entity;
 
+import co.topc.iems.validate.RenterValidateGroup;
+import co.topc.web.commons.TopcWebResponse;
+import co.topc.web.commons.utils.TopcDateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 租客实体类
- *
+ * <p>
  * t_iems_renter
- * @author 
+ *
+ * @author
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Renter implements Serializable {
+
+    public interface ShowList extends TopcWebResponse.WebResponse {
+    }
+
     /**
      * 主键ID
      */
+    @NotBlank(message = "主键Id不能为空", groups = {RenterValidateGroup.Update.class})
+    @ApiModelProperty(value = "主键Id", name = "pkId", hidden = true)
+    @JsonView(Renter.ShowList.class)
     private String pkId;
 
     /**
      * 租客类型 /个人，公司
      */
+    @NotBlank(message = "租客类型不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "租客类型", name = "renterType", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterType;
 
     /**
      * 姓名或工商注册名
      */
+    @NotBlank(message = "姓名或工商注册名不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "姓名或工商注册名", name = "renterName", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterName;
 
     /**
      * 身份证号或社会统一信用编码
      */
+    @NotBlank(message = "身份证号或社会统一信用编码不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "身份证号或社会统一信用编码", name = "renterVerifyId", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterVerifyId;
 
     /**
      * 租客联系人
      */
+    @NotBlank(message = "租客联系人不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "租客联系人", name = "renterContactor", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterContactor;
 
     /**
      * 租客联系电话
      */
+    @NotBlank(message = "租客联系电话不能为空", groups = {RenterValidateGroup.Insert.class})
+    @Pattern(regexp = "1[3|4|5|7|8][0-9]\\d{8}", message = "电话号码格式不对", groups = {RenterValidateGroup.Insert.class, RenterValidateGroup.Update.class})
+    @ApiModelProperty(value = "租客联系电话", name = "renterContactorTelephone", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterContactorTelephone;
 
     /**
      * 租客财务联系人
      */
+    @NotBlank(message = "租客财务联系人不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "租客财务联系人", name = "renterFinancialContactor", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterFinancialContactor;
 
     /**
      * 租客财务联系人电话/催缴信息默认发送该电话
      */
+    @NotBlank(message = "租客财务联系人电话不能为空", groups = {RenterValidateGroup.Insert.class})
+    @Pattern(regexp = "1[3|4|5|7|8][0-9]\\d{8}", message = "电话号码格式不对", groups = {RenterValidateGroup.Insert.class, RenterValidateGroup.Update.class})
+    @ApiModelProperty(value = "租客财务联系人电话", name = "renterFinancialContactorTelephone", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterFinancialContactorTelephone;
 
     /**
-     * 账单接收邮箱	
+     * 账单接收邮箱
      */
+    @NotBlank(message = "账单接收邮箱不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "账单接收邮箱", name = "renterBillEmail", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterBillEmail;
 
     /**
-     * 公司法人	
+     * 公司法人
      */
+    @NotBlank(message = "公司法人不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "公司法人", name = "renterComMan", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterComMan;
 
     /**
-     * 公司法人电话	
+     * 公司法人电话
      */
+    @NotBlank(message = "公司法人电话不能为空", groups = {RenterValidateGroup.Insert.class})
+    @Pattern(regexp = "1[3|4|5|7|8][0-9]\\d{8}", message = "电话号码格式不对", groups = {RenterValidateGroup.Insert.class, RenterValidateGroup.Update.class})
+    @ApiModelProperty(value = "公司法人电话", name = "renterComManTelephone", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterComManTelephone;
 
     /**
-     * 公司成立日期	
+     * 公司成立日期
      */
+    @NotBlank(message = "公司成立日期不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "公司成立日期", name = "renterComBuiltTime", required = true)
+    @JsonView(Renter.ShowList.class)
     private Date renterComBuiltTime;
 
     /**
      * 公司类型
      */
+    @NotBlank(message = "公司类型不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "公司类型", name = "renterComType", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterComType;
 
     /**
      * 公司注册住所
      */
+    @NotBlank(message = "公司注册住所不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "公司注册住所", name = "renterComAddress", required = true)
+    @JsonView(Renter.ShowList.class)
     private String renterComAddress;
 
     /**
      * 公司注册资本
      */
+    @NotBlank(message = "公司注册资本不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "公司注册资本", name = "renterComRegAmount", required = true)
+    @JsonView(Renter.ShowList.class)
     private Double renterComRegAmount;
 
     /**
      * 是否删除
      */
+    @JsonIgnore
     private String isDeleted;
 
     /**
-     * 	创建人
+     * 创建人
      */
+    @JsonView(Renter.ShowList.class)
     private String createBy;
 
     /**
-     * 更新时间
+     * 创建时间
      */
+    @JsonFormat(pattern = TopcDateUtils.DATE_TIME_FORMAT, timezone = "GMT+8")
+    @JsonView(Renter.ShowList.class)
     private Date createTime;
 
     /**
      * 更新人
      */
+    @JsonView(Renter.ShowList.class)
     private String updateBy;
 
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = TopcDateUtils.DATE_TIME_FORMAT, timezone = "GMT+8")
+    @JsonView(Renter.ShowList.class)
     private Date updateTime;
 
     /**
      * 租户ID
      */
+    @JsonView(Renter.ShowList.class)
     private String lesseeId;
 
     private static final long serialVersionUID = 1L;
@@ -296,26 +371,26 @@ public class Renter implements Serializable {
         }
         Renter other = (Renter) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
-            && (this.getRenterType() == null ? other.getRenterType() == null : this.getRenterType().equals(other.getRenterType()))
-            && (this.getRenterName() == null ? other.getRenterName() == null : this.getRenterName().equals(other.getRenterName()))
-            && (this.getRenterVerifyId() == null ? other.getRenterVerifyId() == null : this.getRenterVerifyId().equals(other.getRenterVerifyId()))
-            && (this.getRenterContactor() == null ? other.getRenterContactor() == null : this.getRenterContactor().equals(other.getRenterContactor()))
-            && (this.getRenterContactorTelephone() == null ? other.getRenterContactorTelephone() == null : this.getRenterContactorTelephone().equals(other.getRenterContactorTelephone()))
-            && (this.getRenterFinancialContactor() == null ? other.getRenterFinancialContactor() == null : this.getRenterFinancialContactor().equals(other.getRenterFinancialContactor()))
-            && (this.getRenterFinancialContactorTelephone() == null ? other.getRenterFinancialContactorTelephone() == null : this.getRenterFinancialContactorTelephone().equals(other.getRenterFinancialContactorTelephone()))
-            && (this.getRenterBillEmail() == null ? other.getRenterBillEmail() == null : this.getRenterBillEmail().equals(other.getRenterBillEmail()))
-            && (this.getRenterComMan() == null ? other.getRenterComMan() == null : this.getRenterComMan().equals(other.getRenterComMan()))
-            && (this.getRenterComManTelephone() == null ? other.getRenterComManTelephone() == null : this.getRenterComManTelephone().equals(other.getRenterComManTelephone()))
-            && (this.getRenterComBuiltTime() == null ? other.getRenterComBuiltTime() == null : this.getRenterComBuiltTime().equals(other.getRenterComBuiltTime()))
-            && (this.getRenterComType() == null ? other.getRenterComType() == null : this.getRenterComType().equals(other.getRenterComType()))
-            && (this.getRenterComAddress() == null ? other.getRenterComAddress() == null : this.getRenterComAddress().equals(other.getRenterComAddress()))
-            && (this.getRenterComRegAmount() == null ? other.getRenterComRegAmount() == null : this.getRenterComRegAmount().equals(other.getRenterComRegAmount()))
-            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
+                && (this.getRenterType() == null ? other.getRenterType() == null : this.getRenterType().equals(other.getRenterType()))
+                && (this.getRenterName() == null ? other.getRenterName() == null : this.getRenterName().equals(other.getRenterName()))
+                && (this.getRenterVerifyId() == null ? other.getRenterVerifyId() == null : this.getRenterVerifyId().equals(other.getRenterVerifyId()))
+                && (this.getRenterContactor() == null ? other.getRenterContactor() == null : this.getRenterContactor().equals(other.getRenterContactor()))
+                && (this.getRenterContactorTelephone() == null ? other.getRenterContactorTelephone() == null : this.getRenterContactorTelephone().equals(other.getRenterContactorTelephone()))
+                && (this.getRenterFinancialContactor() == null ? other.getRenterFinancialContactor() == null : this.getRenterFinancialContactor().equals(other.getRenterFinancialContactor()))
+                && (this.getRenterFinancialContactorTelephone() == null ? other.getRenterFinancialContactorTelephone() == null : this.getRenterFinancialContactorTelephone().equals(other.getRenterFinancialContactorTelephone()))
+                && (this.getRenterBillEmail() == null ? other.getRenterBillEmail() == null : this.getRenterBillEmail().equals(other.getRenterBillEmail()))
+                && (this.getRenterComMan() == null ? other.getRenterComMan() == null : this.getRenterComMan().equals(other.getRenterComMan()))
+                && (this.getRenterComManTelephone() == null ? other.getRenterComManTelephone() == null : this.getRenterComManTelephone().equals(other.getRenterComManTelephone()))
+                && (this.getRenterComBuiltTime() == null ? other.getRenterComBuiltTime() == null : this.getRenterComBuiltTime().equals(other.getRenterComBuiltTime()))
+                && (this.getRenterComType() == null ? other.getRenterComType() == null : this.getRenterComType().equals(other.getRenterComType()))
+                && (this.getRenterComAddress() == null ? other.getRenterComAddress() == null : this.getRenterComAddress().equals(other.getRenterComAddress()))
+                && (this.getRenterComRegAmount() == null ? other.getRenterComRegAmount() == null : this.getRenterComRegAmount().equals(other.getRenterComRegAmount()))
+                && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
+                && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
     }
 
     @Override

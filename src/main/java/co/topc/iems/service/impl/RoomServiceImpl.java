@@ -2,9 +2,7 @@ package co.topc.iems.service.impl;
 
 import co.topc.iems.entity.Room;
 import co.topc.iems.entity.RoomExample;
-import co.topc.iems.entity.req.AddRoomReq;
 import co.topc.iems.entity.req.ListRoomReq;
-import co.topc.iems.entity.req.UpdateRoomReq;
 import co.topc.iems.mapper.RoomMapper;
 import co.topc.iems.service.IRoomService;
 import co.topc.web.commons.constants.TopcStringConstant;
@@ -60,19 +58,19 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addRoom(AddRoomReq addRoomReq) {
+    public void addRoom(Room roomParam) {
         Room room = new Room();
         room.setPkId(TopcUUIDUtils.getUUIDWithoutDash());
-        room.setFloorPkId(addRoomReq.getFloorPkId());
-        room.setLesseeId(addRoomReq.getLesseeId());
-        room.setRoomArea(addRoomReq.getRoomArea());
-        room.setRoomNo(addRoomReq.getRoomNo());
-        room.setRoomMark(addRoomReq.getRoomMark());
-        room.setRoomStatus(addRoomReq.getRoomStatus());
+        room.setFloorPkId(roomParam.getFloorPkId());
+        room.setLesseeId(roomParam.getLesseeId());
+        room.setRoomArea(roomParam.getRoomArea());
+        room.setRoomNo(roomParam.getRoomNo());
+        room.setRoomMark(roomParam.getRoomMark());
+        room.setRoomStatus(roomParam.getRoomStatus());
 
         // 暂时这样写,后面可能从session里面取当前登陆用户信息
-        room.setCreateBy(addRoomReq.getCreateBy());
-        room.setUpdateBy(addRoomReq.getUpdateBy());
+        room.setCreateBy(roomParam.getCreateBy());
+        room.setUpdateBy(roomParam.getUpdateBy());
         room.setCreateTime(new Date());
         room.setUpdateTime(new Date());
         roomMapper.insertSelective(room);
@@ -80,9 +78,9 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateRoom(UpdateRoomReq updateRoomReq) {
+    public void updateRoom(Room roomParam) {
         Room room = new Room();
-        BeanUtils.copyProperties(updateRoomReq, room);
+        BeanUtils.copyProperties(roomParam, room);
         // TODO 后续从session中取值
         room.setUpdateBy("fan");
         room.setUpdateTime(new Date());

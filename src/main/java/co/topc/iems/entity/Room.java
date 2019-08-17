@@ -1,71 +1,116 @@
 package co.topc.iems.entity;
 
+import co.topc.iems.validate.RenterValidateGroup;
+import co.topc.iems.validate.RoomValidateGroup;
+import co.topc.web.commons.TopcWebResponse;
+import co.topc.web.commons.utils.TopcDateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 房间实体类
- *
+ * <p>
  * t_iems_room
+ *
  * @author
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Room implements Serializable {
+
+    public interface ShowList extends TopcWebResponse.WebResponse {
+    }
+
     /**
      * 主键
      */
+    @NotBlank(message = "主键Id不能为空", groups = {RoomValidateGroup.Update.class})
+    @ApiModelProperty(value = "主键Id", name = "pkId", hidden = true)
+    @JsonView(Room.ShowList.class)
     private String pkId;
 
     /**
      * 楼层ID
      */
+    @NotBlank(message = "楼层ID不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "楼层ID", name = "floorPkId", hidden = true)
+    @JsonView(Room.ShowList.class)
     private String floorPkId;
 
     /**
      * 房间号
      */
+    @NotBlank(message = "房间号不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "房间号", name = "roomNo", required = true)
+    @JsonView(Room.ShowList.class)
     private String roomNo;
 
     /**
      * 房间面积
      */
-    private Double roomArea;
+    @NotBlank(message = "房间面积不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "房间面积", name = "roomArea", required = true)
+    @JsonView(Room.ShowList.class)
+    private BigDecimal roomArea;
 
     /**
      * 房间状态
      */
+    @NotBlank(message = "房间状态不能为空", groups = {RenterValidateGroup.Insert.class})
+    @ApiModelProperty(value = "房间状态", name = "roomStatus", required = true)
+    @JsonView(Room.ShowList.class)
     private String roomStatus;
 
     /**
      * 备注
      */
+    @ApiModelProperty(value = "备注", name = "roomMark", required = true)
+    @JsonView(Room.ShowList.class)
     private String roomMark;
 
     /**
      * 是否删除
      */
+    @JsonIgnore
     private String isDeleted;
 
     /**
-     * 	创建人
+     * 创建人
      */
+    @JsonView(Room.ShowList.class)
     private String createBy;
 
     /**
-     * 更新时间
+     * 创建时间
      */
+    @JsonFormat(pattern = TopcDateUtils.DATE_TIME_FORMAT, timezone = "GMT+8")
+    @JsonView(Room.ShowList.class)
     private Date createTime;
 
     /**
      * 更新人
      */
+    @JsonView(Room.ShowList.class)
     private String updateBy;
 
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = TopcDateUtils.DATE_TIME_FORMAT, timezone = "GMT+8")
+    @JsonView(Room.ShowList.class)
     private Date updateTime;
 
     /**
      * 租户ID
      */
+    @JsonView(Room.ShowList.class)
     private String lesseeId;
 
     private static final long serialVersionUID = 1L;
@@ -94,11 +139,11 @@ public class Room implements Serializable {
         this.roomNo = roomNo;
     }
 
-    public Double getRoomArea() {
+    public BigDecimal getRoomArea() {
         return roomArea;
     }
 
-    public void setRoomArea(Double roomArea) {
+    public void setRoomArea(BigDecimal roomArea) {
         this.roomArea = roomArea;
     }
 
@@ -179,17 +224,17 @@ public class Room implements Serializable {
         }
         Room other = (Room) that;
         return (this.getPkId() == null ? other.getPkId() == null : this.getPkId().equals(other.getPkId()))
-            && (this.getFloorPkId() == null ? other.getFloorPkId() == null : this.getFloorPkId().equals(other.getFloorPkId()))
-            && (this.getRoomNo() == null ? other.getRoomNo() == null : this.getRoomNo().equals(other.getRoomNo()))
-            && (this.getRoomArea() == null ? other.getRoomArea() == null : this.getRoomArea().equals(other.getRoomArea()))
-            && (this.getRoomStatus() == null ? other.getRoomStatus() == null : this.getRoomStatus().equals(other.getRoomStatus()))
-            && (this.getRoomMark() == null ? other.getRoomMark() == null : this.getRoomMark().equals(other.getRoomMark()))
-            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
+                && (this.getFloorPkId() == null ? other.getFloorPkId() == null : this.getFloorPkId().equals(other.getFloorPkId()))
+                && (this.getRoomNo() == null ? other.getRoomNo() == null : this.getRoomNo().equals(other.getRoomNo()))
+                && (this.getRoomArea() == null ? other.getRoomArea() == null : this.getRoomArea().equals(other.getRoomArea()))
+                && (this.getRoomStatus() == null ? other.getRoomStatus() == null : this.getRoomStatus().equals(other.getRoomStatus()))
+                && (this.getRoomMark() == null ? other.getRoomMark() == null : this.getRoomMark().equals(other.getRoomMark()))
+                && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
+                && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getLesseeId() == null ? other.getLesseeId() == null : this.getLesseeId().equals(other.getLesseeId()));
     }
 
     @Override
